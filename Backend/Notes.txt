@@ -1,0 +1,103 @@
+Our Backend Blueprint for Quizora
+Hum aapke backend folder ke andar ye structure banayenge.
+
+backend/
+
+	config/: Yahan humari configuration files rahengi.
+
+	controllers/: Yahan hamari saari business logic rahegi.
+
+	middlewares/: Custom middlewares (jaise authentication check karne ke liye).
+
+	models/: Yahan hamara database ka schema (structure) define hoga.
+
+	routes/: Yahan hum apni saari API routes define karenge.
+
+	utils/: Chhote, reusable helper functions (jaise mail bhejna).
+
+	.env: Yahan hum apne saare secrets (passwords, keys) store karenge.
+
+	server.js: Hamara main server file (entry point).
+
+File Breakdown (Inki Working Kya Hai?)
+Let's break down the key files we'll need for our Login/Signup functionality.
+
+1. Models (The "Blueprint")
+	models/User.js: Ye file batayegi ki hamare User ka data database mein kaisa dikhega. Hum Mongoose ka use karke ek Schema banayenge jismein ye fields honge:
+
+	firstName (String)
+
+	lastName (String)
+
+	email (String, unique)
+
+	password (String)
+
+	quizzes (Array of Quiz IDs, future ke liye)
+
+2. Controllers (The "Brain")
+	controllers/Auth.js: Is file mein hamari main logic hogi. Ismein do main functions honge:
+
+	signup(req, res):
+
+		Request se user ka data (firstName, email, password) lega.
+
+		Check karega ki is email se user pehle se registered toh nahi hai.
+
+		Password ko bcrypt se hash (encrypt) karega.
+
+		Naye user ko database mein save karega.
+
+		Success ka response bhej dega.
+
+	login(req, res):
+
+		Request se email aur password lega.
+
+		Database mein check karega ki is email ka user hai ya nahi.
+
+		Agar hai, toh user ke diye gaye password ko hash karke database waale hash se compare karega.
+
+		Agar match hota hai, toh ek JWT (JSON Web Token) generate karega. Ye token user ki identity ka proof hai.
+
+		Ye JWT token, user details ke saath, response mein bhej dega.
+
+3. Routes (The "Address Book")
+	routes/user.js: Ye file batayegi ki kaunsi URL par kaunsa controller function chalega.
+
+	POST /api/v1/auth/signup -> Ye request signup controller ko bhejega.
+
+	POST /api/v1/auth/login -> Ye request login controller ko bhejega.
+
+4. Middlewares (The "Security Guard")
+	middlewares/auth.js: Ismein ek function hoga jo har protected request se pehle chalega.
+
+	auth(req, res, next):
+
+		Request ke header se JWT token nikalega.
+
+		Token ko verify karega.
+
+		Agar token valid hai, toh user ki information req.user mein add kar dega aur request ko aage badhne dega (next()).
+
+		Agar token invalid hai, toh error bhej dega.
+
+
+
+" The Big Picture: The Manager and the Specialist
+	Sochiye, aapki file upload request ek "company" hai. Is company mein do main employees hain:
+
+	The Manager (Quiz.js Controller): Ye overall in-charge hai. Iska kaam hai customer (frontend) se order (PDF file) lena, check karna ki order theek hai ya nahi, aur phir kaam ko sahi department ko bhejna. Manager ko "AI" ki deep knowledge nahi hai.
+
+	The Specialist (aiHelper.js Utility): Ye company ka AI expert hai. Iska sirf ek hi kaam hai: Manager se text lena, AI se baat karke us text se quiz banana, aur saaf-suthra result wapas Manager ko de dena. "
+
+Poora Workflow in 5 Steps:
+	Frontend se PDF file aati hai.
+
+	Manager (Quiz.js) file ko receive karta hai aur usse text nikalta hai.
+
+	Manager us text ko Specialist (aiHelper.js) ko de deta hai.
+
+	Specialist AI (Gemini) se baat karke, us text se ek perfect JSON format mein quiz banwata hai.
+
+	Specialist woh ready-made quiz wapas Manager ko deta hai, aur Manager use frontend ko bhej deta hai.
