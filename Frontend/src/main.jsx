@@ -6,7 +6,7 @@ import './index.css';
 
 // 1. Redux se zaroori cheezein import karein
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import store from './redux/Store';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
