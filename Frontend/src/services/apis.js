@@ -1,6 +1,6 @@
 // Backend server ka base URL
-// const BASE_URL = "http://localhost:4000/api/v1";
-const BASE_URL = "https://quizora-ai-quiz-app-0.onrender.com/api/v1";
+const BASE_URL = "http://localhost:4000/api/v1";
+// const BASE_URL = "https://quizora-ai-quiz-app-0.onrender.com/api/v1";
 
 // Authentication endpoints
 export const endpoints = {
