@@ -1,48 +1,27 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 require("dotenv").config();
 
-// This is the "Plan B" function. It creates a fake, sample quiz for the live server.
-function createMockQuiz(text) {
-    console.log("Using MOCK AI function because we are in a production environment.");
-    const textSnippet = text.substring(0, 50).replace(/\s+/g, ' ').trim();
-    return [
-        {
-            "question": "This is a MOCK question. What did your PDF start with?",
-            "options": [
-                `"${textSnippet}..."`,
-                "An option about React",
-                "An option about MongoDB",
-                "None of the above"
-            ],
-            "correctAnswer": 0
-        },
-        {
-            "question": "Is this a real AI-generated quiz?",
-            "options": [
-                "Yes, it is.",
-                "No, this is a placeholder for deployment.",
-                "Maybe.",
-                "I don't know."
-            ],
-            "correctAnswer": 1
-        }
-    ];
-}
-
-// This is your REAL AI function for local development.
-async function generateQuizWithRealAI(text) {
+// This is our main, and ONLY, function that will talk to the AI
+async function generateQuizFromText(text) {
     try {
+        // Check if the API key is available
         if (!process.env.GEMINI_API_KEY) {
             throw new Error("GEMINI_API_KEY is not defined in the environment.");
         }
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+        
+        // THE FIX: Using the 'gemini-pro' model, which is more stable and widely available.
         const model = genAI.getGenerativeModel({ model: "gemini-pro"}); 
+
         const prompt = `
             You are an expert quiz creator. Based on the following text, generate exactly 7 unique multiple-choice questions.
             Provide the output as a valid JSON array of objects only. Do not include any other text, explanations, or markdown formatting like \`\`\`json.
-            Each object must have these three keys: "question", "options" (an array of 4 strings), and "correctAnswer" (the 0-based index).
+            Each object in the array must have these three exact keys: 
+            1. "question" (string)
+            2. "options" (an array of exactly 4 strings)
+            3. "correctAnswer" (the 0-based index of the correct option in the "options" array).
 
-            Text to analyze:
+            Here is the text to analyze:
             ---
             ${text}
             ---
@@ -50,29 +29,25 @@ async function generateQuizWithRealAI(text) {
 
         const result = await model.generateContent(prompt);
         const response = await result.response;
-        const responseText = response.text();
-        
+        let responseText = response.text();
+
+        // This will robustly remove the ```json markdown if the AI adds it
         const cleanedText = responseText.replace(/```json/g, "").replace(/```/g, "").trim();
-        const quiz = JSON.parse(cleanedText);
-        return quiz;
+
+        // Parse the cleaned text in a safe block
+        try {
+            const quiz = JSON.parse(cleanedText);
+            return quiz;
+        } catch (parseError) {
+            console.error("Failed to parse AI response as JSON:", cleanedText);
+            return null; // Return null if parsing fails
+        }
 
     } catch (error) {
-        console.error("Error communicating with the REAL AI model:", error);
+        console.error("Error communicating with the AI model:", error);
         return null;
     }
 }
 
-// This is our main function that decides which helper to use.
-async function generateQuizFromText(text) {
-    // Render sets NODE_ENV to 'production'. Locally, it's often undefined.
-    // If the environment is 'production', we use the safe mock function.
-    if (process.env.NODE_ENV === 'production') {
-        return createMockQuiz(text);
-    } else {
-        // Otherwise (on your local machine), use the real AI.
-        return generateQuizWithRealAI(text);
-    }
-}
-
+// Export the function
 module.exports = { generateQuizFromText };
-
