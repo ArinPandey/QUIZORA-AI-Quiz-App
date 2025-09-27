@@ -8,7 +8,8 @@ async function generateQuizFromText(text) {
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
         const prompt = `
-            You are an expert quiz creator. Based on the following text, generate exactly 7 unique multiple-choice questions.
+            You are an expert quiz creator. Based on the following text, generate up to 7 unique multiple-choice questions (minimum 3, maximum 7).
+            If the text does not provide enough material, create additional reasonable questions based on general knowledge of the same topic.
             Provide the output as a valid JSON array of objects only. Do not include any other text, explanations, or markdown formatting like \`\`\`json.
             Each object in the array must have these three exact keys: 
             1. "question" (string)
