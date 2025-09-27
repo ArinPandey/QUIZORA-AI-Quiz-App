@@ -16,7 +16,6 @@ export const apiConnector = (method, url, bodyData, headers, params) => {
 };
 
 
-// Ye ek rule hai jo har request ke bheje jaane se PEHLE chalta hai
 axiosInstance.interceptors.request.use(
     (config) => {
         // localStorage se token nikaalo

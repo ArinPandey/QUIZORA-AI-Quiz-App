@@ -23,12 +23,17 @@ const DashboardPage = () => {
         }
     };
 
-    const handleUpload = () => {
+    const handleUpload = async () => {
         if (!selectedFile) {
             alert("Please select a file first.");
             return;
         }
-        dispatch(generateQuiz(selectedFile, token, navigate));
+        try {
+            await dispatch(generateQuiz(selectedFile, token));
+            navigate("/quiz");   // ✅ navigate from here
+        } catch (err) {
+            console.error("Quiz generation failed:", err);
+        }
     };
 
     const onFileUploadClick = () => {

@@ -4,11 +4,14 @@ import { endpoints } from "../services/apis";
 
 const { SIGNUP_API, LOGIN_API } = endpoints;
 
-// Signup function (ye pehle se hai)
+// Signup function
 export function signup(firstName, lastName, email, password, navigate) {
     return async (dispatch) => {
+        console.log("Signup action triggered"); // Debug log 1
         dispatch(setLoading(true));
+        
         try {
+            console.log("Making API request..."); // Debug log 2
             const response = await apiConnector("POST", SIGNUP_API, {
                 firstName,
                 lastName,
@@ -32,7 +35,6 @@ export function signup(firstName, lastName, email, password, navigate) {
         dispatch(setLoading(false));
     };
 }
-
 
 // Login function
 export function login(email, password, navigate) {
@@ -73,5 +75,21 @@ export function login(email, password, navigate) {
 }
 
 
-
-
+export function logout(navigate) {
+    return (dispatch) => {
+        // Step 1: Clear the Redux store
+        // We set token and user to 'null'
+        dispatch(setToken(null));
+        dispatch(setUser(null));
+        
+        // Step 2: Clear localStorage
+        // We remove the user's "Access Card" and data from their browser's memory
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        
+        alert("Logged Out Successfully");
+        
+        // Step 3: Redirect to the homepage
+        navigate("/");
+    }
+}

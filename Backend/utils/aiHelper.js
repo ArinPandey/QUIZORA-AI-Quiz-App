@@ -1,3 +1,65 @@
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+require("dotenv").config();
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+async function generateQuizFromText(text) {
+    try {
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+        const prompt = `
+            You are an expert quiz creator. Based on the following text, generate exactly 7 unique multiple-choice questions.
+            Provide the output as a valid JSON array of objects only. Do not include any other text, explanations, or markdown formatting like \`\`\`json.
+            Each object in the array must have these three exact keys: 
+            1. "question" (string)
+            2. "options" (an array of exactly 4 strings)
+            3. "correctAnswer" (the 0-based index of the correct option in the "options" array).
+
+            Here is the text to analyze:
+            ---
+            ${text.substring(0, 10000)} // Limit text to prevent token limits
+            ---
+        `;
+
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        let responseText = response.text(); // Use 'let' instead of 'const'
+
+        // Clean the response text
+        if (responseText.startsWith("```json")) {
+            responseText = responseText.substring(7, responseText.length - 3);
+        } else if (responseText.startsWith("```")) {
+            responseText = responseText.substring(3, responseText.length - 3);
+        }
+
+        // Trim and parse
+        responseText = responseText.trim();
+        
+        try {
+            const quiz = JSON.parse(responseText);
+            
+            // Validate the quiz structure
+            if (!Array.isArray(quiz) || quiz.length === 0) {
+                console.error("AI response is not a valid array");
+                return null;
+            }
+            
+            return quiz;
+        } catch (parseError) {
+            console.error("Failed to parse AI response as JSON:", responseText);
+            console.error("Parse error:", parseError);
+            return null;
+        }
+
+    } catch (error) {
+        console.error("Error communicating with the AI model:", error);
+        return null;
+    }
+}
+
+module.exports = { generateQuizFromText };
+
+
 // const { GoogleGenerativeAI } = require("@google/generative-ai");
 // require("dotenv").config();
 
@@ -52,86 +114,50 @@
 //     }
 // }
 
+
+
+
 // // Export the function so we can use it in our controller
 // module.exports = { generateQuizFromText };
 
 
-const { GoogleGenerativeAI } = require("@google/generative-ai");
-require("dotenv").config();
+// const { GoogleGenerativeAI } = require("@google/generative-ai");
+// require("dotenv").config();
 
-// This function creates a fake, sample quiz.
-function createMockQuiz(text) {
-    console.log("Using MOCK AI function. No external API call was made.");
-    const textSnippet = text.substring(0, 50).replace(/\s+/g, ' ').trim(); // Get a small snippet of the PDF text
-    return [
-        {
-            question: "This is a MOCK question based on your PDF. What was the first sentence?",
-            options: [
-                `"${textSnippet}..."`,
-                "An option about React",
-                "An option about MongoDB",
-                "None of the above"
-            ],
-            "correctAnswer": 0
-        },
-        {
-            question: "Is this a real AI-generated quiz?",
-            options: [
-                "Yes, it is.",
-                "No, this is a placeholder for development.",
-                "Maybe.",
-                "I don't know."
-            ],
-            "correctAnswer": 1
-        }
-    ];
-}
+// const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
+// async function generateQuizFromText(text) {
+//     try {
+       
+//         const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 
-// This is your REAL AI function.
-async function generateQuizWithRealAI(text) {
-    try {
-        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
-        const prompt = `
-            You are an expert quiz creator. Based on the following text, generate exactly 5 unique multiple-choice questions.
-            Provide the output as a valid JSON array of objects only. Do not include any other text, explanations, or markdown formatting like \`\`\`json.
-            Each object in the array must have these three exact keys: 
-            1. "question" (string)
-            2. "options" (an array of exactly 4 strings)
-            3. "correctAnswer" (the 0-based index of the correct option in the "options" array).
+//         const prompt = `
+//             You are an expert quiz creator. Based on the following text, generate exactly 5 unique multiple-choice questions.
+//             Provide the output as a valid JSON array of objects only. Do not include any other text, explanations, or markdown formatting like \`\`\`json.
+//             Each object in the array must have these three exact keys: 
+//             1. "question" (string)
+//             2. "options" (an array of exactly 4 strings)
+//             3. "correctAnswer" (the 0-based index of the correct option in the "options" array).
 
-            Here is the text to analyze:
-            ---
-            ${text}
-            ---
-        `;
+//             Here is the text to analyze:
+//             ---
+//             ${text}
+//             ---
+//         `;
 
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const responseText = response.text();
+//         const result = await model.generateContent(prompt);
+//         const response = await result.response;
+//         const responseText = response.text();
         
-        // Clean up potential markdown formatting from the AI response
-        const cleanedText = responseText.replace(/```json/g, "").replace(/```/g, "").trim();
-        const quiz = JSON.parse(cleanedText);
-        return quiz;
+//         const cleanedText = responseText.replace(/```json/g, "").replace(/```/g, "").trim();
+//         const quiz = JSON.parse(cleanedText);
+//         return quiz;
 
-    } catch (error) {
-        console.error("Error communicating with the AI model:", error);
-        return null;
-    }
-}
+//     } catch (error) {
+//         console.error("Error communicating with the AI model:", error);
+//         return null;
+//     }
+// }
 
-// This is our main function that decides which helper to use.
-async function generateQuizFromText(text) {
-    // We check an environment variable. If we're on our local machine, we try the real AI.
-    // If we're on Render (or any other environment), we use the safe, mock version.
-    if (process.env.NODE_ENV === 'development') {
-        return generateQuizWithRealAI(text);
-    } else {
-        return createMockQuiz(text);
-    }
-}
-
-module.exports = { generateQuizFromText };
+// module.exports = { generateQuizFromText };
 

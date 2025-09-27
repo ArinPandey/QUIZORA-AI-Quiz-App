@@ -4,7 +4,7 @@ const multer = require('multer');
 
 // Controller aur Middleware ko import karna
 const { generateQuiz } = require("../controllers/Quiz");
-const { auth } = require("../middlewares/auth");
+const { auth } = require("../middlewares/auth"); 
 
 // Multer ko setup karna (ye file ko memory mein store karega)
 const storage = multer.memoryStorage();
