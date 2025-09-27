@@ -1,7 +1,7 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 require("dotenv").config();
 
-// This is our main, and ONLY, function that will talk to the AI
+// This is our main, and ONLY, function that will talk to the AI.
 async function generateQuizFromText(text) {
     try {
         // Check if the API key is available
@@ -10,8 +10,9 @@ async function generateQuizFromText(text) {
         }
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         
-        // THE FIX: Using the 'gemini-pro' model, which is more stable and widely available.
-        const model = genAI.getGenerativeModel({ model: "gemini-pro"}); 
+        // THE FINAL FIX: Using the 'gemini-1.5-flash-latest' model. 
+        // This is a stable identifier that points to the latest Flash model.
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest"}); 
 
         const prompt = `
             You are an expert quiz creator. Based on the following text, generate exactly 7 unique multiple-choice questions.
