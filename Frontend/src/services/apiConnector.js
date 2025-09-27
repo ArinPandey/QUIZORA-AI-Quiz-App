@@ -15,3 +15,20 @@ export const apiConnector = (method, url, bodyData, headers, params) => {
     });
 };
 
+
+// Ye ek rule hai jo har request ke bheje jaane se PEHLE chalta hai
+axiosInstance.interceptors.request.use(
+    (config) => {
+        // localStorage se token nikaalo
+        const token = localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")) : null;
+
+        // Agar token hai, toh request ke header mein 'Authorization' add kar do
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
