@@ -1,6 +1,6 @@
-import { setQuizLoading, setQuizQuestions, setQuizError } from '../../redux/slices/quizSlice'; // Import setQuizError
-import { apiConnector } from '../apiConnector';
-import { endpoints } from '../apis';
+import { setQuizLoading, setQuizQuestions, setQuizError } from '../redux/slices/quizSlice';
+import { apiConnector } from "../services/apiConnector";
+import { endpoints } from "../services/apis";
 
 const { GENERATE_QUIZ_API } = endpoints;
 
