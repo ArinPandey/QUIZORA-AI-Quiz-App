@@ -70,7 +70,6 @@ app.use(express.json());
 app.use(cookieParser()); // 2. Make sure this line is present and before your routes
 app.use(
     cors({
-        // Add "-app" to the end of the URL to match your Vercel domain
         origin: "https://quizora-ai-quiz-app.vercel.app", 
         credentials: true,
     })
