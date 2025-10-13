@@ -55,7 +55,7 @@ const DashboardPage = () => {
         <div className="min-h-screen bg-gradient-to-br from-rose-600 via-red-700 to-purple-800 flex items-center justify-center p-4 mt-[-25px]">
             <div className="max-w-xl w-full bg-white rounded-2xl shadow-lg p-8 text-center">
                 <h1 className="text-3xl font-bold font-unbounded text-gray-900 mb-2">Generate Your Quiz</h1>
-                <p className="text-gray-600 mb-8">Upload a PDF document to get started.</p>
+                <p className="text-gray-600 mb-8">Upload a 1-page PDF document to get started.</p>
 
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 mb-6">
                     <UploadCloud className="w-16 h-16 text-gray-400 mx-auto mb-4" />

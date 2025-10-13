@@ -4,7 +4,8 @@
 // apiConnector.js: This will be a single, generic function that makes all your axios calls. It's the perfect place to 
 // handle common logic, like setting the base URL, adding authentication tokens to headers, or managing errors.
 
-const BASE_URL = "http://localhost:8000/api"; // Port is 8000
+// const BASE_URL = "http://localhost:8000/api"; 
+const BASE_URL = "https://quizora-ai-quiz-app18.onrender.com/api";
 
 // We will define our API endpoints here
 export const authEndpoints = {
