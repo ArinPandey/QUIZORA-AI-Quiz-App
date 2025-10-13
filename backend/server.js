@@ -46,8 +46,6 @@
 
 
 
-// backend/server.js
-
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
@@ -72,7 +70,7 @@ app.use(express.json());
 app.use(cookieParser()); // 2. Make sure this line is present and before your routes
 app.use(
     cors({
-        origin: "http://localhost:5173", // Make sure this matches your frontend port
+        origin: "https://quizora-ai-quiz.vercel.app", // Your new live frontend URL
         credentials: true,
     })
 );
