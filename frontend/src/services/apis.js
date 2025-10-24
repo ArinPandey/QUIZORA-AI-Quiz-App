@@ -12,6 +12,7 @@ export const authEndpoints = {
     // UPDATED: Route path to include '/auth'
     SIGNUP_API: `${BASE_URL}/auth/signup`,
     LOGIN_API: `${BASE_URL}/auth/login`,
+    VERIFY_OTP_API: `${BASE_URL}/auth/verify-otp`,
 };
 
 export const quizEndpoints = {

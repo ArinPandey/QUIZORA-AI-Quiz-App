@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 // Controller functions ko import kar rahe hain
-const { signup, login } = require("../controllers/Auth");
+const { signup, login,verifyOTP } = require("../controllers/Auth");
 
 // Middleware ko import kar rahe hain
 const { auth } = require("../middlewares/auth");
@@ -16,6 +16,8 @@ router.post("/signup", signup);
 
 // Route for user login (hum isse baad mein banayenge)
 router.post("/login", login);
+
+router.post("/verify-otp", verifyOTP);
 
 // --- Protected Route (Is darwaze par security guard khada hai) ---
 // Is route ko access karne se pehle, 'auth' middleware chalega

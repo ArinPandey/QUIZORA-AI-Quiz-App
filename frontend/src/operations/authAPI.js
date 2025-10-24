@@ -3,7 +3,7 @@ import { setToken, clearToken } from '../redux/slices/authSlices';
 import { apiConnector } from '../services/apiConnector'; 
 import { authEndpoints } from '../services/apis'; 
 
-const { SIGNUP_API, LOGIN_API } = authEndpoints;
+const { SIGNUP_API, LOGIN_API,VERIFY_OTP_API } = authEndpoints;
 
 export const signup = (firstName, lastName, email, password, navigate) => {
   return async (dispatch) => {
@@ -29,6 +29,30 @@ export const signup = (firstName, lastName, email, password, navigate) => {
     }
     toast.dismiss(toastId);
   };
+};
+
+export const verifyOtp = (email, otp, navigate) => {
+    return async (dispatch) => {
+        const toastId = toast.loading("Verifying OTP...");
+        try {
+            const response = await apiConnector("POST", VERIFY_OTP_API, {
+                email,
+                otp,
+            });
+
+            if (!response.data.success) {
+                throw new Error(response.data.message);
+            }
+
+            toast.success("Account Verified Successfully!");
+            navigate("/login"); // Redirect to login page after verification
+
+        } catch (error) {
+            const message = error.response?.data?.message || "OTP Verification Failed";
+            toast.error(message);
+        }
+        toast.dismiss(toastId);
+    };
 };
 
 export const login = (email, password, navigate) => {

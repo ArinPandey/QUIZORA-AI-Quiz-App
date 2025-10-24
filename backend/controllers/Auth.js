@@ -7,65 +7,130 @@ const bcrypt = require("bcryptjs");
 // jsonwebtoken library ko import kar rahe hain token banane ke liye
 const jwt = require("jsonwebtoken");
 
+const otpGenerator = require('otp-generator'); 
+const mailSender = require('../utils/mailSender');
+
 require("dotenv").config();
 
 // Signup logic
 exports.signup = async (req, res) => {
     try {
-        // Step 1: User se data fetch karna (request body se)
         const { firstName, lastName, email, password } = req.body;
 
-        // Step 2: Validation - Check karna ki saari details bhari hain ya nahi
         if (!firstName || !lastName || !email || !password) {
-            return res.status(400).json({
-                success: false,
-                message: "Please fill all the details carefully.",
-            });
+            return res.status(400).json({ success: false, message: "Please fill all details." });
         }
 
-        // Step 3: Check karna ki user pehle se registered toh nahi hai
+        // Check if user already exists (regardless of verification status)
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({
+            // If user exists but is not verified, we can resend OTP (logic can be added later)
+            // For now, just prevent duplicate signups
+             return res.status(400).json({
                 success: false,
                 message: "User with this email already exists.",
-            });
+             });
         }
 
-        // Step 4: Password ko hash (secure) karna
-        let hashedPassword;
-        try {
-            // bcrypt.hash() function password ko 10 rounds of salting se secure karta hai
-            hashedPassword = await bcrypt.hash(password, 10);
-        } catch (error) {
-            return res.status(500).json({
-                success: false,
-                message: `Error in hashing password: ${error.message}`,
-            });
-        }
+        // Hash password
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Step 5: Naye user ko database mein create karna
-        const user = await User.create({
+        // Generate OTP
+        const otp = otpGenerator.generate(6, {
+            upperCaseAlphabets: false,
+            lowerCaseAlphabets: false,
+            specialChars: false,
+        });
+
+        // Set OTP expiry time (e.g., 5 minutes from now)
+        const otpExpires = Date.now() + 5 * 60 * 1000; // 5 minutes in milliseconds
+
+        // Create user document but keep isVerified as false
+        const newUser = await User.create({
             firstName,
             lastName,
             email,
-            password: hashedPassword, // Hashed password save kar rahe hain
+            password: hashedPassword,
+            otp: otp,
+            otpExpires: otpExpires,
+            isVerified: false, // User is not verified yet
         });
 
-        // Step 6: Success response bhejna
-        return res.status(201).json({
+        // Send OTP email
+        try {
+            await mailSender(
+                email,
+                "Quizora - Verify Your Email",
+                `<p>Your One-Time Password (OTP) for Quizora registration is: <h2>${otp}</h2> It is valid for 5 minutes.</p>`
+            );
+            console.log(`OTP sent successfully to ${email}`);
+        } catch (mailError) {
+            console.error("Failed to send OTP email:", mailError);
+            // Optional: Delete the user if email fails, or allow retry later
+            await User.deleteOne({ _id: newUser._id }); // Rollback user creation
+            return res.status(500).json({
+                success: false,
+                message: "Failed to send verification email. Please try signing up again.",
+            });
+        }
+
+        // Respond to frontend - IMPORTANT: Don't send user data yet
+        return res.status(200).json({ // Use 200 OK because the user isn't fully created yet
             success: true,
-            message: "User registered successfully!",
-            user: user,
+            message: "OTP sent successfully! Please check your email to verify your account.",
+            // We might send back the email to help the frontend confirm which user to verify
+            email: email, 
         });
 
     } catch (error) {
-        // Agar koi aur error aata hai
-        console.error(error);
-        return res.status(500).json({
-            success: false,
-            message: "User cannot be registered. Please try again.",
+        console.error("Signup error:", error);
+        return res.status(500).json({ success: false, message: "User registration failed." });
+    }
+};
+
+// --- ADD A PLACEHOLDER FOR THE VERIFY FUNCTION ---
+exports.verifyOTP = async (req, res) => {
+    try {
+        // 1. Get email and OTP from request body
+        const { email, otp } = req.body;
+
+        // 2. Validate input
+        if (!email || !otp) {
+            return res.status(400).json({ success: false, message: "Please provide email and OTP." });
+        }
+
+        // 3. Find the user by email
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found. Please sign up first." });
+        }
+
+        // 4. Check if user is already verified
+        if (user.isVerified) {
+             return res.status(400).json({ success: false, message: "Account already verified. Please log in." });
+        }
+
+        // 5. Verify the OTP
+        if (user.otp !== otp || user.otpExpires < Date.now()) {
+            // Check if OTP matches and hasn't expired
+             return res.status(400).json({ success: false, message: "Invalid or expired OTP." });
+        }
+
+        // 6. Mark the user as verified and clear OTP fields
+        user.isVerified = true;
+        user.otp = undefined; // Remove OTP
+        user.otpExpires = undefined; // Remove expiry
+        await user.save(); // Save the changes to the database
+
+        // 7. Send success response
+        return res.status(200).json({
+            success: true,
+            message: "Account verified successfully! You can now log in.",
         });
+
+    } catch (error) {
+        console.error("OTP Verification error:", error);
+        return res.status(500).json({ success: false, message: "OTP verification failed." });
     }
 };
 
@@ -89,6 +154,13 @@ exports.login = async (req, res) => {
             return res.status(401).json({ // 401 = Unauthorized
                 success: false,
                 message: "Invalid credentials. User not found.",
+            });
+        }
+
+        if (!user.isVerified) {
+            return res.status(401).json({ // 401 Unauthorized
+                success: false,
+                message: "Account not verified. Please check your email for the OTP.",
             });
         }
 

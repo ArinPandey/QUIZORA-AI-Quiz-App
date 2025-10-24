@@ -24,6 +24,15 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    otp: {
+     type: String 
+    }, // To store the generated OTP
+    otpExpires: { 
+      type: Date 
+    }, // To store the OTP expiry time
+    isVerified: { 
+      type: Boolean, default: false 
+    },
   },
   {
     timestamps: true,
