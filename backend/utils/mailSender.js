@@ -1,35 +1,33 @@
- const nodemailer = require('nodemailer');
-require('dotenv').config();
+// backend/utils/mailSender.js
+import { Resend } from 'resend';
+import * as dotenv from 'dotenv';
 
-const mailSender = async (email, title, body) => {
+dotenv.config();
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+const mailSender = async (to, subject, html) => {
     try {
-        // Create a transporter object using SMTP transport
-        let transporter = nodemailer.createTransport({
-            host: process.env.MAIL_HOST,
-            port: 587, // Standard port for secure SMTP
-            secure: false, // true for 465, false for other ports
-            auth: {
-                user: process.env.MAIL_USER, // Your email address
-                pass: process.env.MAIL_PASS, // Your email password or app password
-            },
+        console.log(`Attempting to send email via Resend to ${to}...`);
+        const { data, error } = await resend.emails.send({
+            from: `Quizora <${process.env.FROM_EMAIL}>`, // Or a custom sender like 'Quizora <noreply@yourdomain.com>' if verified
+            to: [to], // Resend expects an array of recipients
+            subject: subject,
+            html: html,
         });
 
-        // Send mail with defined transport object
-        let info = await transporter.sendMail({
-            from: `"Quizora" <${process.env.MAIL_USER}>`, // Sender address
-            to: email, // List of receivers
-            subject: title, // Subject line
-            html: body, // HTML body content
-        });
+        if (error) {
+            console.error('Error response from Resend:', error);
+            throw new Error(`Failed to send email via Resend: ${error.message}`);
+        }
 
-        console.log("Email sent successfully!");
-        console.log("Message ID:", info.messageId);
-        return info;
+        console.log(`✅ Email sent successfully via Resend! ID: ${data.id}`);
+        return data; // Indicate success
 
     } catch (error) {
-        console.error("Error sending email:", error);
-        throw new Error("Failed to send email."); // Re-throw for controller to handle
+        console.error('❌ Error in mailSender function:', error);
+        throw error; // Re-throw the error for the controller
     }
 };
 
-module.exports = mailSender;
+export default mailSender;
