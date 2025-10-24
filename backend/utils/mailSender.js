@@ -1,6 +1,6 @@
 // backend/utils/mailSender.js
-import { Resend } from 'resend';
-import * as dotenv from 'dotenv';
+const { Resend } = require('resend'); // Use require
+const dotenv = require('dotenv'); // Use require
 
 dotenv.config();
 
@@ -10,8 +10,8 @@ const mailSender = async (to, subject, html) => {
     try {
         console.log(`Attempting to send email via Resend to ${to}...`);
         const { data, error } = await resend.emails.send({
-            from: `Quizora <${process.env.FROM_EMAIL}>`, // Or a custom sender like 'Quizora <noreply@yourdomain.com>' if verified
-            to: [to], // Resend expects an array of recipients
+            from: `Quizora <${process.env.FROM_EMAIL}>`,
+            to: [to],
             subject: subject,
             html: html,
         });
@@ -22,12 +22,12 @@ const mailSender = async (to, subject, html) => {
         }
 
         console.log(`✅ Email sent successfully via Resend! ID: ${data.id}`);
-        return data; // Indicate success
+        return data;
 
     } catch (error) {
         console.error('❌ Error in mailSender function:', error);
-        throw error; // Re-throw the error for the controller
+        throw error;
     }
 };
 
-export default mailSender;
+module.exports = mailSender; // Use module.exports
