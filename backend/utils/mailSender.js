@@ -1,33 +1,34 @@
-// backend/utils/mailSender.js
-const { Resend } = require('resend'); // Use require
-const dotenv = require('dotenv'); // Use require
 
-dotenv.config();
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+
+const Sib = require('sib-api-v3-sdk');
+require('dotenv').config();
+
+const client = Sib.ApiClient.instance;
+client.authentications['api-key'].apiKey = process.env.BREVO_API_KEY;
 
 const mailSender = async (to, subject, html) => {
-    try {
-        console.log(`Attempting to send email via Resend to ${to}...`);
-        const { data, error } = await resend.emails.send({
-            from: `Quizora <${process.env.FROM_EMAIL}>`,
-            to: [to],
-            subject: subject,
-            html: html,
-        });
+  try {
+    const tranEmailApi = new Sib.TransactionalEmailsApi();
 
-        if (error) {
-            console.error('Error response from Resend:', error);
-            throw new Error(`Failed to send email via Resend: ${error.message}`);
-        }
+    const sender = {
+      email: process.env.FROM_EMAIL,
+      name: 'Quizora', 
+    };
 
-        console.log(`✅ Email sent successfully via Resend! ID: ${data.id}`);
-        return data;
+    const response = await tranEmailApi.sendTransacEmail({
+      sender,
+      to: [{ email: to }],
+      subject,
+      htmlContent: html,
+    });
 
-    } catch (error) {
-        console.error('❌ Error in mailSender function:', error);
-        throw error;
-    }
+    console.log('✅ Email sent via Brevo:', response.messageId || response);
+    return response;
+  } catch (error) {
+    console.error('❌ Error sending email via Brevo:', error.response?.body || error);
+    throw error;
+  }
 };
 
-module.exports = mailSender; // Use module.exports
+module.exports = mailSender;
