@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 // Controller functions ko import kar rahe hain
-const { signup, login,verifyOTP } = require("../controllers/Auth");
+const { signup, login, verifyOTP, forgotPassword, resetPassword } = require("../controllers/Auth");
 
 // Middleware ko import kar rahe hain
 const { auth } = require("../middlewares/auth");
@@ -18,6 +18,9 @@ router.post("/signup", signup);
 router.post("/login", login);
 
 router.post("/verify-otp", verifyOTP);
+
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password", resetPassword);
 
 // --- Protected Route (Is darwaze par security guard khada hai) ---
 // Is route ko access karne se pehle, 'auth' middleware chalega

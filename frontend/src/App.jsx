@@ -6,6 +6,8 @@ import Footer from "./components/common/Footer.jsx";
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import LandingPage from './pages/LandingPage';
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 // Import the components we need to protect and add
 import QuizPage from './pages/QuizPage'; 
@@ -41,6 +43,9 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
       </main>
       <Toaster />

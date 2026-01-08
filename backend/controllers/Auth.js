@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 
 const otpGenerator = require('otp-generator'); 
 const mailSender = require('../utils/mailSender');
+const crypto = require('crypto');
 
 require("dotenv").config();
 
@@ -213,3 +214,58 @@ exports.login = async (req, res) => {
     }
 };
 
+// --- Forgot Password ---
+exports.forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email });
+        if (!user) return res.status(404).json({ success: false, message: "User not found" });
+
+        // Generate Token
+        const token = crypto.randomBytes(20).toString('hex');
+
+        // Update User in DB
+        user.resetPasswordToken = token;
+        user.resetPasswordExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+        await user.save();
+
+        // Create Reset URL
+        // const resetUrl = `https://quizora-ai-quiz-app.vercel.app/reset-password/${token}`;
+        const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${token}`;
+
+        // Send Email
+        await mailSender(
+            email,
+            "Password Reset Link - Quizora",
+            `<h1>Reset Your Password</h1><p>Click here to reset: <a href="${resetUrl}">${resetUrl}</a></p>`
+        );
+
+        res.json({ success: true, message: "Reset link sent to email" });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+// --- Reset Password ---
+exports.resetPassword = async (req, res) => {
+    try {
+        const { token, password } = req.body;
+        const user = await User.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpires: { $gt: Date.now() },
+        });
+
+        if (!user) return res.status(400).json({ success: false, message: "Invalid or expired token" });
+
+        // Hash new password
+        const hashedPassword = await bcrypt.hash(password, 10);
+        user.password = hashedPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+        await user.save();
+
+        res.json({ success: true, message: "Password updated successfully" });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
