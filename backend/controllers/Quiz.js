@@ -1,58 +1,3 @@
-// const pdf = require('pdf-parse');
-// const { generateQuizFromText } = require('../utils/aiHelper');
-
-// exports.generateQuiz = async (req, res) => {
-//     try {
-//         // Step 1: Check if file was uploaded 
-//         if (!req.file) {
-//             return res.status(400).json({
-//                 success: false,
-//                 message: "No file uploaded. Please upload a PDF.",
-//             });
-//         }
-
-//         // Step 2: Extract text from the PDF buffer
-//         const data = await pdf(req.file.buffer);
-//         const text = data.text;
-
-//         if (!text || text.trim() === "") {
-//             return res.status(400).json({
-//                 success: false,
-//                 message: "Could not extract text from the PDF. The file might be empty or image-based."
-//             });
-//         }
-
-//         // Step 3: Limit text to avoid exceeding AI model token limits
-//         const limitedText = text.substring(0, 15000); // Limit to 15,000 characters
-
-//         // Step 4: Call the AI helper to generate the quiz
-//         console.log("Sending text to AI for quiz generation...");
-//         const quiz = await generateQuizFromText(limitedText);
-
-//         if (!quiz || !Array.isArray(quiz) || quiz.length === 0) {
-//             return res.status(500).json({
-//                 success: false,
-//                 message: "The AI could not generate a valid quiz from the provided text."
-//             });
-//         }
-
-//         // Step 5: Send the successful response
-//         console.log("Quiz generated successfully with", quiz.length, "questions");
-//         return res.status(200).json({
-//             success: true,
-//             message: "Quiz generated successfully!",
-//             quiz: quiz,
-//         });
-
-//     } catch (error) {
-//         console.error("Error in generating quiz:", error.message);
-//         return res.status(500).json({
-//             success: false,
-//             message: "A server error occurred while generating the quiz. Please try again.",
-//         });
-//     }
-// };
-
 const pdf = require('pdf-parse');
 const { generateQuizFromText,listAvailableModels } = require('../utils/aiHelper');
 
@@ -135,3 +80,61 @@ exports.listModels = async (req, res) => {
         });
     }
 };
+
+
+
+// const pdf = require('pdf-parse');
+// const { generateQuizFromText } = require('../utils/aiHelper');
+
+// exports.generateQuiz = async (req, res) => {
+//     try {
+//         // Step 1: Check if file was uploaded 
+//         if (!req.file) {
+//             return res.status(400).json({
+//                 success: false,
+//                 message: "No file uploaded. Please upload a PDF.",
+//             });
+//         }
+
+//         // Step 2: Extract text from the PDF buffer
+//         const data = await pdf(req.file.buffer);
+//         const text = data.text;
+
+//         if (!text || text.trim() === "") {
+//             return res.status(400).json({
+//                 success: false,
+//                 message: "Could not extract text from the PDF. The file might be empty or image-based."
+//             });
+//         }
+
+//         // Step 3: Limit text to avoid exceeding AI model token limits
+//         const limitedText = text.substring(0, 15000); // Limit to 15,000 characters
+
+//         // Step 4: Call the AI helper to generate the quiz
+//         console.log("Sending text to AI for quiz generation...");
+//         const quiz = await generateQuizFromText(limitedText);
+
+//         if (!quiz || !Array.isArray(quiz) || quiz.length === 0) {
+//             return res.status(500).json({
+//                 success: false,
+//                 message: "The AI could not generate a valid quiz from the provided text."
+//             });
+//         }
+
+//         // Step 5: Send the successful response
+//         console.log("Quiz generated successfully with", quiz.length, "questions");
+//         return res.status(200).json({
+//             success: true,
+//             message: "Quiz generated successfully!",
+//             quiz: quiz,
+//         });
+
+//     } catch (error) {
+//         console.error("Error in generating quiz:", error.message);
+//         return res.status(500).json({
+//             success: false,
+//             message: "A server error occurred while generating the quiz. Please try again.",
+//         });
+//     }
+// };
+
