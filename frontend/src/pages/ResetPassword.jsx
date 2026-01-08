@@ -22,21 +22,34 @@ const ResetPassword = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-slate-900 text-white">
-            <form onSubmit={handleReset} className="bg-slate-800 p-8 rounded-lg shadow-xl w-96">
-                <h2 className="text-2xl font-bold mb-4">Set New Password</h2>
-                <input
-                    type="password"
-                    placeholder="Enter new password"
-                    className="w-full p-2 mb-4 bg-slate-700 rounded"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <button type="submit" className="w-full bg-purple-600 py-2 rounded hover:bg-purple-700">
-                    Update Password
-                </button>
-            </form>
+        <div className="min-h-screen bg-gradient-to-b from-white via-orange-50 to-orange-200 flex items-center justify-center p-4">
+            <div className="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-2xl w-full max-w-md border border-white/20">
+                <div className="mb-6 text-center">
+                    <div className="inline-flex items-center justify-center w-12 h-12 bg-orange-100 rounded-full mb-4">
+                        <Lock className="w-6 h-6 text-orange-600" />
+                    </div>
+                    <h2 className="text-3xl font-bold text-gray-900">Set New Password</h2>
+                    <p className="text-gray-500 text-sm mt-2">Almost there! Choose a strong new password.</p>
+                </div>
+
+                <form onSubmit={handleReset} className="space-y-6">
+                    <div>
+                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">New Password</label>
+                        <input
+                            type="password"
+                            placeholder="Min. 8 characters"
+                            className="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    
+                    <button type="submit" className="w-full bg-gray-900 hover:bg-black text-white font-bold py-4 rounded-xl transition-all shadow-lg transform hover:scale-[1.01] active:scale-[0.98]">
+                        Update Password
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };
