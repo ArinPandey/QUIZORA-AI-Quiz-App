@@ -155,7 +155,7 @@ const QuizPage = () => {
                     {token ? (
                         <button
                             onClick={startQuiz}
-                            className="group relative w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:via-indigo-500 hover:to-blue-500 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center justify-center space-x-3 overflow-hidden"
+                            className="group relative w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:via-indigo-500 hover:to-blue-500 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center justify-center space-x-3 overflow-hidden cursor-pointer"
                         >
                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
                             <span className="relative z-10">Start Quiz</span>
@@ -218,15 +218,15 @@ const QuizPage = () => {
                         })}
                     </div>
                     <div className="flex space-x-4">
-                        <button onClick={previousQuestion} disabled={currentQuestion === 0 || showAnswer} className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 rounded-lg flex items-center justify-center space-x-2 disabled:opacity-50">
+                        <button onClick={previousQuestion} disabled={currentQuestion === 0 || showAnswer} className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 rounded-lg flex items-center justify-center space-x-2 disabled:opacity-50 cursor-pointer">
                             <ChevronLeft size={20} /><span>Previous</span>
                         </button>
                         {!showAnswer ? (
-                            <button onClick={() => submitAnswer(false)} disabled={selectedAnswer === null} className="flex-1 bg-gray-400 text-white font-semibold py-3 rounded-lg disabled:bg-gray-300">
+                            <button onClick={() => submitAnswer(false)} disabled={selectedAnswer === null} className="flex-1 bg-gray-800 text-white font-semibold py-3 rounded-lg disabled:bg-gray-300 cursor-pointer">
                                 Submit Answer
                             </button>
                         ) : (
-                            <button onClick={nextQuestion} className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg flex items-center justify-center space-x-2">
+                            <button onClick={nextQuestion} className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg flex items-center justify-center space-x-2 cursor-pointer">
                                 <span>{currentQuestion === questions.length - 1 ? 'View Results' : 'Next Question'}</span><ChevronRight size={20} />
                             </button>
                         )}
@@ -284,7 +284,7 @@ const QuizPage = () => {
                             ))}
                         </div>
                     </div>
-                    <button onClick={restartQuiz} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center space-x-2">
+                    <button onClick={restartQuiz} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center space-x-2 cursor-pointer">
                         <RotateCcw className="w-4 h-4" />
                         <span>Take Quiz Again</span>
                     </button>

@@ -53,9 +53,9 @@ const DashboardPage = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-rose-600 via-red-700 to-purple-800 flex items-center justify-center p-4 mt-[-25px]">
-            <div className="max-w-xl w-full bg-white rounded-2xl shadow-lg p-8 text-center">
+            <div className="max-w-xl w-full bg-white/50 rounded-2xl shadow-lg p-8 text-center">
                 <h1 className="text-3xl font-bold font-unbounded text-gray-900 mb-2">Generate Your Quiz</h1>
-                <p className="text-gray-600 mb-8">Upload a 1-page PDF document to get started.</p>
+                <p className="text-gray-800 mb-8">Upload a 1-page PDF document to get started.</p>
 
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 mb-6">
                     <UploadCloud className="w-16 h-16 text-gray-400 mx-auto mb-4" />
@@ -69,13 +69,13 @@ const DashboardPage = () => {
                     <label htmlFor="pdf-upload" className="font-semibold text-indigo-600 cursor-pointer hover:text-indigo-500">
                         {selectedFile ? `Selected: ${selectedFile.name}` : "Choose a PDF file"}
                     </label>
-                    <p className="text-sm text-gray-500 mt-2">Max file size: 10MB</p>
+                    <p className="text-sm text-gray-800 mt-2">Max file size: 10MB</p>
                 </div>
 
                 <button
                     onClick={handleUpload}
                     disabled={!selectedFile || isLoading}
-                    className="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-md hover:bg-indigo-700 transition duration-300 disabled:bg-violet-400"
+                    className="w-full bg-indigo-800 text-white font-bold py-3 px-4 rounded-md hover:bg-indigo-900 transition duration-300 disabled:bg-violet-600 cursor-pointer"
                 >
                     {isLoading ? "Generating..." : "Generate Quiz"}
                 </button>
