@@ -117,11 +117,13 @@ const LandingPage = () => {
               <div className="bg-indigo-100 text-indigo-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6"><UserCheck size={32} /></div>
               <h3 className="text-2xl font-bold mb-3">Track Your Progress</h3>
               <p className="text-gray-600 font-sans">Create a profile to save your results, track scores over time, and identify areas for improvement.</p>
+              <p className="text-red-900 font-sans">! Comming Soon</p>
             </div>
             <div className="feature-card p-8 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
               <div className="bg-indigo-100 text-indigo-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6"><Trophy size={32} /></div>
               <h3 className="text-2xl font-bold mb-3">Compete & Conquer</h3>
               <p className="text-gray-600 font-sans">Challenge your friends, compete on leaderboards, and prove your mastery of the subject matter.</p>
+              <p className="text-red-900 font-sans">! Comming Soon</p>
             </div>
           </div>
         </div>
