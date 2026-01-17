@@ -24,9 +24,9 @@ const ForgotPassword = () => {
     };
 
     return (
-       <div className="min-h-screen bg-gradient-to-b from-white via-orange-50 to-orange-200 flex items-center justify-center p-4">
+       <div className="min-h-screen bg-gradient-to-b from-orange-300 via-orange-100 to-orange-50 flex items-center justify-center p-4 mt-[-28px]">
             {/* Minimal Card Design */}
-            <div className="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-xl w-full max-w-md border border-white/20">
+            <div className="bg-white/20 backdrop-blur-md p-8 rounded-2xl shadow-xl w-full max-w-md border border-white/20">
                 <Link to="/login" className="flex items-center text-gray-500 hover:text-orange-600 mb-6 transition-colors text-sm font-medium">
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to Login
@@ -54,7 +54,7 @@ const ForgotPassword = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-gray-900 hover:bg-black text-white font-bold py-4 rounded-xl transition-all shadow-lg disabled:opacity-50 transform hover:scale-[1.01] active:scale-[0.98]"
+                        className="w-full bg-gray-900 hover:bg-black text-white font-bold py-4 rounded-xl transition-all shadow-lg disabled:opacity-50 transform hover:scale-[1.01] active:scale-[0.98] cursor-pointer"
                     >
                         {loading ? "Sending link..." : "Send Reset Link"}
                     </button>

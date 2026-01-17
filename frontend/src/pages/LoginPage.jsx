@@ -27,12 +27,12 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-rose-300 via-pink-400 to-purple-400 flex items-center justify-center p-4 relative mt-[-28px]">
+        <div className="min-h-screen bg-gradient-to-b from-blue-400 via-blue-200 to-blue-100 flex items-center justify-center p-4 relative mt-[-28px]">
             {/* Decorative Orbs */}
-            <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
-            <div className="absolute top-40 right-10 w-72 h-72 bg-yellow-600 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-2000"></div>
+            {/*<div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
+            <div className="absolute top-40 right-10 w-72 h-72 bg-yellow-600 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-2000"></div>*/}
             
-            <div className="relative w-full max-w-md p-8 space-y-6 bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20">
+            <div className="relative w-full max-w-md p-8 space-y-6 bg-white/20 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20">
                 <div className="text-center">
                     <h1 className="text-3xl font-bold text-gray-800 mb-2">Welcome Back!</h1>
                     <p className="text-gray-600">Sign in to continue to Quizora.</p>
@@ -74,7 +74,7 @@ const LoginPage = () => {
 
                     <button
                         type="submit"
-                        className="w-full px-4 py-3 font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl"
+                        className="w-full px-4 py-3 font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
                     >
                         Sign In
                     </button>
@@ -85,7 +85,7 @@ const LoginPage = () => {
                         Don't have an account?{' '}
                         <button
                             onClick={() => navigate('/signup')}
-                            className="text-indigo-600 hover:text-indigo-800 font-semibold transition-colors duration-300"
+                            className="text-indigo-600 hover:text-indigo-800 font-semibold transition-colors duration-300 cursor-pointer"
                         >
                             Sign Up
                         </button>

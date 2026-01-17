@@ -120,7 +120,7 @@ const SignupPage = () => {
 
                             <button
                                 type="submit"
-                                className="w-full px-4 py-3 font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                                className="w-full px-4 py-3 font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
                             >
                                 Send OTP {/* Changed Button Text */}
                             </button>
@@ -131,7 +131,7 @@ const SignupPage = () => {
                                 Already have an account?{' '}
                                 <button
                                     onClick={() => navigate('/login')}
-                                    className="text-indigo-600 hover:text-indigo-800 font-semibold transition-colors duration-300"
+                                    className="text-indigo-600 hover:text-indigo-800 font-semibold transition-colors duration-300 cursor-pointer"
                                 >
                                     Sign In
                                 </button>

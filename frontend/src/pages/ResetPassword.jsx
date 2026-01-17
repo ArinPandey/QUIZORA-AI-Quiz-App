@@ -22,8 +22,8 @@ const ResetPassword = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-white via-orange-50 to-orange-200 flex items-center justify-center p-4">
-            <div className="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-2xl w-full max-w-md border border-white/20">
+        <div className="min-h-screen bg-gradient-to-b from-orange-300 via-orange-100 to-orange-50 flex items-center justify-center p-4">
+            <div className="bg-white/20 backdrop-blur-md p-8 rounded-2xl shadow-2xl w-full max-w-md border border-white/20">
                 <div className="mb-6 text-center">
                     <div className="inline-flex items-center justify-center w-12 h-12 bg-orange-100 rounded-full mb-4">
                         <Lock className="w-6 h-6 text-orange-600" />
@@ -45,7 +45,7 @@ const ResetPassword = () => {
                         />
                     </div>
                     
-                    <button type="submit" className="w-full bg-gray-900 hover:bg-black text-white font-bold py-4 rounded-xl transition-all shadow-lg transform hover:scale-[1.01] active:scale-[0.98]">
+                    <button type="submit" className="w-full bg-gray-900 hover:bg-black text-white font-bold py-4 rounded-xl transition-all shadow-lg transform hover:scale-[1.01] active:scale-[0.98] cursor-pointer">
                         Update Password
                     </button>
                 </form>
