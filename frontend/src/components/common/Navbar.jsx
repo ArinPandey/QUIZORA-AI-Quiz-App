@@ -7,6 +7,10 @@ import { logout } from '../../operations/authAPI';
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { token } = useSelector((state) => state.auth);
+
+  // Get user data from profile slice to access firstName
+  const { user } = useSelector((state) => state.profile || {});
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,6 +46,19 @@ const Navbar = () => {
           <BrainCircuit className="h-7 w-7 text-indigo-400" />
           <span>Quizora</span>
         </Link>
+
+        {/* --- NEW: Centered Greeting --- */}
+        <div className="hidden md:flex flex-grow justify-center">
+          {token && user && (
+            <div className={`text-sm font-medium px-4 py-1.5 rounded-full border shadow-sm transition-all duration-300 ${
+              isScrolled 
+                ? 'text-gray-600 bg-orange-50/50 border-orange-100' 
+                : 'text-white bg-white/10 border-white/20'
+            }`}>
+              Hi, <span className="text-orange-400 font-bold">{user.firstName}</span>! 👋
+            </div>
+          )}
+        </div>
         
         {/* Navigation Links */}
         <div className="flex items-center space-x-6">
