@@ -6,10 +6,14 @@ import { logout } from '../../operations/authAPI';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { token } = useSelector((state) => state.auth);
+  // const { token } = useSelector((state) => state.auth);
+  const { token, user: authUser } = useSelector((state) => state.auth);
 
   // Get user data from profile slice to access firstName
-  const { user } = useSelector((state) => state.profile || {});
+  // const { user } = useSelector((state) => state.profile || {});
+  const { user: profileUser } = useSelector((state) => state.profile || {});
+  // Use whichever one contains the data
+  const user = profileUser || authUser;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,7 +52,7 @@ const Navbar = () => {
         </Link>
 
         {/* --- NEW: Centered Greeting --- */}
-        <div className="hidden md:flex flex-grow justify-center">
+        {/*<div className="hidden md:flex flex-grow justify-center">
           {token && user && (
             <div className={`text-sm font-medium px-4 py-1.5 rounded-full border shadow-sm transition-all duration-300 ${
               isScrolled 
@@ -58,6 +62,22 @@ const Navbar = () => {
               Hi, <span className="text-orange-600 font-bold">{user.firstName}</span>! 👋
             </div>
           )}
+        </div>*/}
+        <div className="hidden md:flex flex-grow justify-center">
+          {token && user?.firstName ? (
+            <div className={`text-sm font-medium px-4 py-1.5 rounded-full border shadow-sm transition-all duration-300 ${
+              isScrolled 
+                ? 'text-gray-900 bg-orange-100 border-orange-300' 
+                : 'text-gray-900 bg-white border-gray-300'
+            }`}>
+              Hi, <span className="text-orange-600 font-extrabold">{user.firstName}</span>! 👋
+            </div>
+          ) : token ? (
+            /* This will show if you are logged in but the name data is missing from Redux */
+            <div className="text-xs text-red-500 bg-white/50 px-2 rounded">
+              Token found, but User data missing in Redux
+            </div>
+          ) : null}
         </div>
         
         {/* Navigation Links */}
