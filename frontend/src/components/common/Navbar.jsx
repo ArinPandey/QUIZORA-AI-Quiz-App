@@ -52,10 +52,10 @@ const Navbar = () => {
           {token && user && (
             <div className={`text-sm font-medium px-4 py-1.5 rounded-full border shadow-sm transition-all duration-300 ${
               isScrolled 
-                ? 'text-gray-600 bg-orange-50/50 border-orange-100' 
-                : 'text-white bg-white/10 border-white/20'
+                ? 'text-gray-700 bg-orange-50/80 border-orange-200' 
+                : 'text-gray-800 bg-white/40 border-white/40 backdrop-blur-sm'
             }`}>
-              Hi, <span className="text-orange-400 font-bold">{user.firstName}</span>! 👋
+              Hi, <span className="text-orange-600 font-bold">{user.firstName}</span>! 👋
             </div>
           )}
         </div>
