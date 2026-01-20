@@ -6,14 +6,13 @@ import { logout } from '../../operations/authAPI';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  // const { token } = useSelector((state) => state.auth);
-  const { token, user: authUser } = useSelector((state) => state.auth);
+  const { token, user } = useSelector((state) => state.auth);
 
   // Get user data from profile slice to access firstName
   // const { user } = useSelector((state) => state.profile || {});
-  const { user: profileUser } = useSelector((state) => state.profile || {});
+  // const { user: profileUser } = useSelector((state) => state.profile || {});
   // Use whichever one contains the data
-  const user = profileUser || authUser;
+  // const user = profileUser || authUser;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
