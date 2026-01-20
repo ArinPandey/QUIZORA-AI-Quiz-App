@@ -1,5 +1,5 @@
 import { toast } from 'react-hot-toast';
-import { setToken, clearToken } from '../redux/slices/authSlices';
+import { setToken,setUser, clearToken } from '../redux/slices/authSlices';
 import { apiConnector } from '../services/apiConnector'; 
 import { authEndpoints } from '../services/apis'; 
 
