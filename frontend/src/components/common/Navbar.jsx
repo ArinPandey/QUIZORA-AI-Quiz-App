@@ -51,17 +51,6 @@ const Navbar = () => {
         </Link>
 
         {/* --- NEW: Centered Greeting --- */}
-        {/*<div className="hidden md:flex flex-grow justify-center">
-          {token && user && (
-            <div className={`text-sm font-medium px-4 py-1.5 rounded-full border shadow-sm transition-all duration-300 ${
-              isScrolled 
-                ? 'text-gray-700 bg-orange-50/80 border-orange-200' 
-                : 'text-gray-800 bg-white/40 border-white/40 backdrop-blur-sm'
-            }`}>
-              Hi, <span className="text-orange-600 font-bold">{user.firstName}</span>! 👋
-            </div>
-          )}
-        </div>*/}
         <div className="hidden md:flex flex-grow justify-center">
           {token && user?.firstName ? (
             <div className={`text-sm font-medium px-4 py-1.5 rounded-full border shadow-sm transition-all duration-300 ${
@@ -87,7 +76,7 @@ const Navbar = () => {
               <NavLink 
                 to="/quiz"
                 className={({ isActive }) => `transition-colors duration-300 ${
-                  isScrolled ? 'text-gray-600 hover:text-gray-900' : 'text-gray-300 hover:text-white'
+                  isScrolled ? 'text-gray-600 hover:text-gray-900 bg-orange-100 border-orange-300' : 'text-gray-300 hover:text-white bg-orange-100 border-orange-300'
                 } ${isActive ? 'text-indigo-400 font-semibold' : ''}`}
               >
                 Try Me
