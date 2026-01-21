@@ -76,14 +76,14 @@ const Navbar = () => {
               <NavLink 
                 to="/quiz"
                 className={({ isActive }) => `transition-colors duration-300 ${
-                  isScrolled ? 'text-gray-600 hover:text-gray-900 bg-orange-100 border-orange-300' : 'text-gray-300 hover:text-white bg-orange-100 border-orange-300'
+                  isScrolled ? 'text-gray-600 hover:text-gray-900' : 'text-gray-300 hover:text-white'
                 } ${isActive ? 'text-indigo-400 font-semibold' : ''}`}
               >
                 Try Me
               </NavLink>
               <NavLink 
                 to="/login" 
-                className={({ isActive }) => `transition-colors duration-300 ${
+                className={({ isActive }) => `px-5 py-2 rounded-md transition-colors duration-300 ${
                   isScrolled ? 'text-gray-600 hover:text-gray-900' : 'text-gray-300 hover:text-white'
                 } ${isActive ? 'text-indigo-400 font-semibold' : ''}`}
               >
