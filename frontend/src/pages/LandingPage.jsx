@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, FileText, UserCheck, Trophy } from 'lucide-react';
 
 
-// Import your local video file
+// Importing the local video file
 import heroVideo from '../assets/a_bit_longer_the_video_is_ama.mp4';
 
 // Register the GSAP plugin once
@@ -44,11 +44,11 @@ const LandingPage = () => {
 
     }, main); // Scope animations to the main ref
 
-    return () => ctx.revert(); // Cleanup GSAP animations
+    return () => ctx.revert(); // Cleanup of GSAP animations
   }, []);
 
   return (
-    <div ref={main} className="bg-white text-gray-800 font-unbounded mt-[-29px]">
+    <div ref={main} className="bg-white text-gray-800 font-unbounded mt-[-36px]">
       
       {/* App Name Full Screen Section */}
       <div className="h-screen flex items-center justify-center bg-gradient-to-br from-pink-500 via-rose-500 to-orange-400 relative overflow-hidden">
@@ -57,7 +57,14 @@ const LandingPage = () => {
           <h1 className="text-8xl md:text-9xl lg:text-[12rem] text-rose-300 tracking-wider select-none">
             QUIZORA
           </h1>
-          <div className="mt-6 w-32 h-1 bg-gradient-to-r from-pink-400 to-purple-300 mx-auto rounded-full"></div>
+          {/*<div className="mt-6 w-32 h-1 bg-gradient-to-r from-pink-400 to-purple-300 mx-auto rounded-full"></div>*/}
+          <div className="mt-6 flex items-center justify-center gap-4">
+            <div className="w-24 h-1 bg-gradient-to-r from-pink-400 to-purple-300 rounded-full"></div>
+
+            <span className="text-rose-200 text-xl tracking-[0.3em] uppercase select-none animate-pulse">
+              Upload · Learn
+            </span>
+          </div>
         </div>
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
           <div className="flex flex-col items-center">

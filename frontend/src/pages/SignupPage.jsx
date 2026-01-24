@@ -49,15 +49,15 @@ const SignupPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-rose-300 via-pink-400 to-purple-400 flex items-center justify-center p-4 relative mt-[-28px]">
+        <div className="min-h-screen bg-gradient-to-b from-blue-600 via-blue-200 to-blue-100 flex items-center justify-center p-4 relative mt-[-32px]">
             {/* Background overlay and elements (kept exactly as you provided) */}
             <div className="absolute inset-0 bg-opacity-20"></div>
             <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
             <div className="absolute top-40 right-10 w-72 h-72 bg-yellow-600 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-2000"></div>
-            <div className="absolute -bottom-10 left-20 w-72 h-72 bg-pink-600 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-4000"></div>
+            {/*<div className="absolute -bottom-10 left-20 w-72 h-72 bg-pink-600 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-4000"></div>*/}
 
             {/* Main form container (styling kept exactly as you provided) */}
-            <div className="relative w-full max-w-md p-8 space-y-6 bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20">
+            <div className="relative w-full max-w-md p-8 space-y-6 bg-white/20 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20">
 
                 {/* Conditional Rendering: Show Signup Form OR OTP Form */}
                 {!otpSent ? (
@@ -185,6 +185,8 @@ const SignupPage = () => {
 };
 
 export default SignupPage;
+
+
 
 
 // import React, { useState } from 'react';
