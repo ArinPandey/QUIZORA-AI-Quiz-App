@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage';
 import LandingPage from './pages/LandingPage';
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import InstantQuiz from "./pages/InstantQuiz";
 
 // Import the components we need to protect and add
 import QuizPage from './pages/QuizPage'; 
@@ -46,6 +47,7 @@ function App() {
 
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/instant-quiz" element={<InstantQuiz />} />
         </Routes>
       </main>
       <Toaster />

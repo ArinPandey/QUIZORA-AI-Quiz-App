@@ -100,7 +100,7 @@ const LandingPage = () => {
               to="/quiz"
               className="inline-flex items-center justify-center px-8 py-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:bg-indigo-700 transition-transform transform hover:scale-105 duration-300"
             >
-              Get Started
+              Try Me
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </div>
