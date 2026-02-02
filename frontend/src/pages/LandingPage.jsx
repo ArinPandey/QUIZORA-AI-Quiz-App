@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, FileText, UserCheck, Trophy } from 'lucide-react';
+import { useSelector } from 'react-redux'; // Pull auth state
 
 
 // Importing the local video file
@@ -11,6 +12,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 const LandingPage = () => {
   const main = useRef();
+
+  // Check if user is logged in via Redux token
+  const { token } = useSelector((state) => state.auth);
+  const isNavbarMenuOpen = useSelector((state) => state.ui?.isNavbarMenuOpen);
 
   useEffect(() => {
     // GSAP context provides easy cleanup
@@ -29,6 +34,35 @@ const LandingPage = () => {
         scale: 1.9,
         ease: "power1.inOut"
       });
+
+      // if (token) {
+      //   // Initial entrance
+      //   gsap.from(".features-indicator", {
+      //     opacity: 0,
+      //     y: 40,
+      //     duration: 1,
+      //     ease: "bounce.out",
+      //     delay: 0.5
+      //   });
+
+      //   // Continuous floating/yoyo effect
+      //   gsap.to(".features-indicator", {
+      //     y: 5,
+      //     duration: 0.8,
+      //     repeat: -1,
+      //     yoyo: true,
+      //     ease: "power1.inOut"
+      //   });
+      // }
+      if (token) {
+        if (isNavbarMenuOpen) {
+          // Fade out when dropdown is open
+          gsap.to(".features-indicator", { opacity: 0, y: -10, duration: 0.3 });
+        } else {
+          // Fade in and resume floating when dropdown is closed
+          gsap.to(".features-indicator", { opacity: 1, y: 9, duration: 0.4,repeat: -1,yoyo:true,ease: "power1.inOut" });
+        }
+      }
       
       gsap.from(".feature-card", {
         scrollTrigger: {
@@ -41,14 +75,23 @@ const LandingPage = () => {
         stagger: 0.2,
         ease: "power3.out",
       });
-
     }, main); // Scope animations to the main ref
 
-    return () => ctx.revert(); // Cleanup of GSAP animations
-  }, []);
+    return () => ctx.revert(); // Cleanup of GSAP animations and re run if login status changes...
+  }, [isNavbarMenuOpen,token]);
 
   return (
     <div ref={main} className="bg-white text-gray-800 font-unbounded mt-[-36px]">
+
+      {/* 1. NEW: Features Indicator (Positioned relative to the header) */}
+      {token && (
+        <div className="features-indicator absolute top-25 left-1/2 transform -translate-x-1/2 z-[60] flex flex-col items-center pointer-events-none">
+          <span className="text-xs text-rose-200 font-medium uppercase tracking-widest drop-shadow-md">Features</span>
+          <svg className="w-4 h-4 text-rose-200 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+          </svg>
+        </div>
+      )}
       
       {/* App Name Full Screen Section */}
       <div className="h-screen flex items-center justify-center bg-gradient-to-br from-pink-500 via-rose-500 to-orange-400 relative overflow-hidden">

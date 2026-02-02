@@ -3,13 +3,14 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { BrainCircuit, LogOut, ChevronDown, FileText, Zap } from 'lucide-react'; 
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../operations/authAPI';
+import { setNavbarMenuOpen } from '../../redux/slices/uiSlice';
 
 const Navbar = () => {
   // 1. Manages header transparency based on how far the user has scrolled.
   const [isScrolled, setIsScrolled] = useState(false); 
   
   // 2. Controls whether the central "Hi, Name" dropdown menu is open or closed.
-  const [isMenuOpen, setIsMenuOpen] = useState(false); 
+  const isMenuOpen = useSelector((state) => state.ui.isNavbarMenuOpen);
   
   // 3. Accesses authentication token and user profile data from the Redux store.
   const { token, user } = useSelector((state) => state.auth); 
@@ -17,18 +18,25 @@ const Navbar = () => {
   // 4. Sets up tools for triggering Redux actions and handling page navigation.
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   // 5. Creates a reference to the dropdown container to detect clicks outside of it.
   const menuRef = useRef(null); 
 
+  const toggleMenu = () => dispatch(setNavbarMenuOpen(!isMenuOpen));
+
   // 6. Automatically closes the dropdown menu if a user clicks anywhere else on the page.
   useEffect(() => {
+    // const handleClickOutside = (event) => {
+    //   if (menuRef.current && !menuRef.current.contains(event.target)) setIsMenuOpen(false);
+    // };
     const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) setIsMenuOpen(false);
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        dispatch(setNavbarMenuOpen(false));
+      }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  }, [dispatch]);
 
   // 7. Listens for window scrolling to update the Navbar background styling dynamically.
   useEffect(() => {
@@ -57,7 +65,7 @@ const Navbar = () => {
             <>
               {/* 12. The button trigger for the dropdown, displaying the logged-in user's first name. */}
               <button 
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                onClick={toggleMenu}
                 className={`flex items-center space-x-2 text-base font-medium px-5 py-2 rounded-full border shadow-sm transition-all ${
                   isScrolled ? 'text-gray-700 bg-orange-300 border-orange-100' : 'text-black bg-white/10 border-white/20'
                 }`}
