@@ -52,7 +52,7 @@ const DashboardPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-rose-600 via-red-700 to-purple-800 flex items-center justify-center p-4 mt-[-25px]">
+        <div className="min-h-screen bg-gradient-to-b from-orange-400 via-orange-200 to-orange-100 flex items-center justify-center p-4 mt-[-25px]">
             <div className="max-w-xl w-full bg-white/50 rounded-2xl shadow-lg p-8 text-center">
                 <h1 className="text-3xl font-bold font-unbounded text-gray-900 mb-2">Generate Your Quiz</h1>
                 <p className="text-gray-800 mb-8">Upload a 1-page PDF document to get started.</p>
@@ -75,7 +75,7 @@ const DashboardPage = () => {
                 <button
                     onClick={handleUpload}
                     disabled={!selectedFile || isLoading}
-                    className="w-full bg-indigo-800 text-white font-bold py-3 px-4 rounded-md hover:bg-indigo-900 transition duration-300 disabled:bg-violet-600 cursor-pointer"
+                    className="w-full bg-gray-900 text-white font-bold py-3 px-4 rounded-md hover:bg-black transition duration-300 disabled:bg-gray-900 disabled:hover:bg-black cursor-pointer"
                 >
                     {isLoading ? "Generating..." : "Generate Quiz"}
                 </button>
