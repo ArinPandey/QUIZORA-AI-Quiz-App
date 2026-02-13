@@ -10,7 +10,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import InstantQuiz from "./pages/InstantQuiz";
 
-// Import the components we need to protect and add
+// Importing the components we need to protect and add
 import QuizPage from './pages/QuizPage'; 
 import DashboardPage from './pages/DashboardPage';
 import ProtectedRoute from './components/core/ProtectedRoute';
@@ -57,6 +57,7 @@ function App() {
 }
 
 export default App;
+
 
 
 

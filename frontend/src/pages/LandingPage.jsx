@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, FileText, UserCheck, Trophy } from 'lucide-react';
 import { useSelector } from 'react-redux'; // Pull auth state
 
+import { Typewriter } from 'react-simple-typewriter';
 
 // Importing the local video file
 import heroVideo from '../assets/a_bit_longer_the_video_is_ama.mp4';
 
-// Register the GSAP plugin once
+// Register the GSAP plugin 
 gsap.registerPlugin(ScrollTrigger);
 
 const LandingPage = () => {
@@ -133,7 +134,18 @@ const LandingPage = () => {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-400 to-gray-200 p-6">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-extrabold text-gray-800 animate-fade-in-down">
-            Transform Documents into <span className="text-indigo-600">Knowledge</span>
+            Transform Documents into{" "}
+            <span className="text-indigo-600 inline-block min-w-[300px] text-left">
+              <Typewriter
+                words={["Knowledge!", "Quizzes!", "Skills!", "Confidence!"]}
+                loop={0}
+                cursor
+                cursorStyle=" "
+                typeSpeed={90}
+                deleteSpeed={0}
+                delaySpeed={1500}
+              />
+            </span>
           </h1>
           <p className="mt-4 text-lg md:text-xl text-gray-600 font-sans max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
             Upload any PDF and let our AI create a personalized quiz for you. The smartest way to study, prepare, and master any subject.
