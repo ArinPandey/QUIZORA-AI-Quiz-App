@@ -142,7 +142,7 @@ const LandingPage = () => {
                 cursor
                 cursorStyle=" "
                 typeSpeed={90}
-                deleteSpeed={0}
+                deleteSpeed={50}
                 delaySpeed={1500}
               />
             </span>
