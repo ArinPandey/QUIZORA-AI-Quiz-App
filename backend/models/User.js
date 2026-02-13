@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema(
   {
-    firstName: { // Changed from 'name'
+    firstName: { 
       type: String,
       required: true,
       trim: true,
     },
-    lastName: { // Added this field
+    lastName: { 
       type: String,
       required: true,
       trim: true,
@@ -32,10 +32,10 @@ const userSchema = new mongoose.Schema(
     },
     otp: {
      type: String 
-    }, // To store the generated OTP
+    },
     otpExpires: { 
       type: Date 
-    }, // To store the OTP expiry time
+    }, 
     isVerified: { 
       type: Boolean, default: false 
     },

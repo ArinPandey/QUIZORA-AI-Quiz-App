@@ -98,7 +98,7 @@ const LandingPage = () => {
       <div className="h-screen flex items-center justify-center bg-gradient-to-b from-black via-zinc-900 to-zinc-700 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='65' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}></div>
         <div className="text-center z-10">
-          <h1 className="text-8xl md:text-9xl lg:text-[12rem] text-rose-300 tracking-wider select-none">
+          <h1 className="text-8xl md:text-9xl lg:text-[12rem] text-rose-300 tracking-wider select-none center-glow">
             QUIZORA
           </h1>
           {/*<div className="mt-6 w-32 h-1 bg-gradient-to-r from-pink-400 to-purple-300 mx-auto rounded-full"></div>*/}

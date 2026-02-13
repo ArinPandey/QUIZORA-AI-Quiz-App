@@ -1,4 +1,4 @@
-// ye file URL Endpoint ya fir User routes define karti hai...
+// ye file me saare URL Endpoint ya fir User routes defined hain...
 const express = require("express");
 const router = express.Router();
 
@@ -8,7 +8,7 @@ const { signup, login, verifyOTP, forgotPassword, resetPassword } = require("../
 // Middleware ko import kar rahe hain
 const { auth } = require("../middlewares/auth");
 
-// --- Public Routes (Inpar security guard nahi hai)
+// ***** Public Routes (Inpar security nahi hai)
 
 // Route for user signup
 // Jab is URL par POST request aayegi, toh 'signup' function chalega
@@ -22,7 +22,7 @@ router.post("/verify-otp", verifyOTP);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
 
-// --- Protected Route (Is darwaze par security guard khada hai) ---
+// --- Protected Route (Ye saare secured routes hain) ---
 // Is route ko access karne se pehle, 'auth' middleware chalega
 router.get("/test", auth, (req, res) => {
     // Agar auth middleware ne request ko yahan tak aane diya,

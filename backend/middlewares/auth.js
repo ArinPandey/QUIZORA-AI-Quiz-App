@@ -4,13 +4,13 @@
 // // This function acts as our security guard
 // exports.auth = async (req, res, next) => {
 //     try {
-//         // Step 1: Extract the token
+//         // Extract the token
 //         // The token can be in the request body, cookie, or "Authorization" header
 //         const token = req.cookies.token 
 //                     || req.body.token 
 //                     || req.header("Authorization").replace("Bearer ", "");
 
-//         // Step 2: If token is missing, return an error
+//         // If token is missing, return an error
 //         if (!token) {
 //             return res.status(401).json({
 //                 success: false,
@@ -18,7 +18,7 @@
 //             });
 //         }
 
-//         // Step 3: Verify the token using the secret key
+//         // Verify the token using the secret key
 //         try {
 //             const decodedPayload = jwt.verify(token, process.env.JWT_SECRET);
 //             console.log("Decoded Token:", decodedPayload);
@@ -35,7 +35,7 @@
 //             });
 //         }
 
-//         // Step 4: If the token is valid, pass the request to the next middleware/controller
+//         // If the token is valid, pass the request to the next middleware/controller
 //         next();
 
 //     } catch (error) {
@@ -50,25 +50,25 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+// middleware to verify the user token...
 exports.auth = async (req, res, next) => {
     try {
-        // --- FINAL, SAFER TOKEN EXTRACTION ---
+        // extract token...
         let token = null;
 
-        // 1. Check for token in Authorization header (most common for APIs)
+        // Check for token in Authorization header...
         const authHeader = req.header("Authorization");
         if (authHeader && authHeader.startsWith("Bearer ")) {
             token = authHeader.replace("Bearer ", "");
         }
-        // 2. If not in header, check for token in cookies
+        // If not in header, check for token in cookies
         else if (req.cookies && req.cookies.token) {
             token = req.cookies.token;
         }
-        // 3. If not in header or cookies, check for token in request body
+        // If not in header or cookies, check for token in request body
         else if (req.body && req.body.token) {
             token = req.body.token;
         }
-        // --- END OF SAFER LOGIC ---
 
         // If no token was found in any location
         if (!token) {

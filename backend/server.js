@@ -2,7 +2,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const cookieParser = require('cookie-parser'); // 1. Make sure this is imported
+const cookieParser = require('cookie-parser'); // Make sure this is imported
 const connectDB = require('./config/database');
 
 // --- Import Routes ---
@@ -20,13 +20,14 @@ connectDB();
 
 // --- Middlewares (Order is important!) ---
 app.use(express.json());
-app.use(cookieParser()); // 2. Make sure this line is present and before your routes
+app.use(cookieParser()); 
 
 const allowedOrigins = [
     "http://localhost:5173", 
     "https://quizora-ai-quiz-app.vercel.app" 
 ];
 
+// Agar allowedOrigin ya fir simply agar humare frontend se koi request aati hai to usko entertain karo...
 app.use(
     cors({
         origin: function (origin, callback) {

@@ -60,6 +60,26 @@
     animation: fade-in-up 0.8s ease-out;
 }
 
+.center-glow {
+    position: relative;
+}
+
+.center-glow::before {
+    content: '';
+    position: absolute;
+  
+    inset: -100px;
+    background: radial-gradient(
+        ellipse at center, 
+        rgba(59, 130, 246, 0.4) 0%, 
+        rgba(168, 85, 247, 0.3) 30%, 
+        transparent 70%
+    );
+    filter: blur(40px);
+    z-index: -1;
+    pointer-events: none;
+}
+
 
 /*:root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

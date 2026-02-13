@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 
 // jsonwebtoken library ko import kar rahe hain token banane ke liye
 const jwt = require("jsonwebtoken");
-
+// Baaki instances...
 const otpGenerator = require('otp-generator'); 
 const mailSender = require('../utils/mailSender');
 const crypto = require('crypto');
@@ -46,7 +46,7 @@ exports.signup = async (req, res) => {
         // Set OTP expiry time (e.g., 5 minutes from now)
         const otpExpires = Date.now() + 5 * 60 * 1000; // 5 minutes in milliseconds
 
-        // Create user document but keep isVerified as false
+        // Create user entry but keep isVerified as false
         const newUser = await User.create({
             firstName,
             lastName,
@@ -89,41 +89,41 @@ exports.signup = async (req, res) => {
     }
 };
 
-// --- ADD A PLACEHOLDER FOR THE VERIFY FUNCTION ---
+
 exports.verifyOTP = async (req, res) => {
     try {
-        // 1. Get email and OTP from request body
+        // Get email and OTP from request body
         const { email, otp } = req.body;
 
-        // 2. Validate input
+        // Validate input
         if (!email || !otp) {
             return res.status(400).json({ success: false, message: "Please provide email and OTP." });
         }
 
-        // 3. Find the user by email
+        // Find the user by email
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found. Please sign up first." });
         }
 
-        // 4. Check if user is already verified
+        // Check if user is already verified
         if (user.isVerified) {
              return res.status(400).json({ success: false, message: "Account already verified. Please log in." });
         }
 
-        // 5. Verify the OTP
+        // Verify the OTP
         if (user.otp !== otp || user.otpExpires < Date.now()) {
             // Check if OTP matches and hasn't expired
              return res.status(400).json({ success: false, message: "Invalid or expired OTP." });
         }
 
-        // 6. Mark the user as verified and clear OTP fields
+        // Mark the user as verified and clear OTP fields
         user.isVerified = true;
         user.otp = undefined; // Remove OTP
         user.otpExpires = undefined; // Remove expiry
         await user.save(); // Save the changes to the database
 
-        // 7. Send success response
+        // Send success response
         return res.status(200).json({
             success: true,
             message: "Account verified successfully! You can now log in.",
@@ -138,10 +138,10 @@ exports.verifyOTP = async (req, res) => {
 // Login logic
 exports.login = async (req, res) => {
     try {
-        // Step 1: User se data lena
+        // User se data lena
         const { email, password } = req.body;
 
-        // Step 2: Validation
+        // Validation
         if (!email || !password) {
             return res.status(400).json({
                 success: false,
@@ -149,7 +149,7 @@ exports.login = async (req, res) => {
             });
         }
 
-        // Step 3: Check karna ki user exist karta hai ya nahi
+        // Check karna ki user exist karta hai ya nahi
         let user = await User.findOne({ email });
         if (!user) {
             return res.status(401).json({ // 401 = Unauthorized
@@ -165,12 +165,12 @@ exports.login = async (req, res) => {
             });
         }
 
-        // Step 4: Password ko compare karna
+        // Password ko compare kar rhe
         // bcrypt.compare() user ke diye plain password ko database ke hashed password se compare karta hai
         if (await bcrypt.compare(password, user.password)) {
             // Passwords match
 
-            // Step 5: JWT Token create karna
+            // JWT Token create kar rhe
             const payload = {
                 email: user.email,
                 id: user._id, // User ki unique ID
@@ -189,7 +189,7 @@ exports.login = async (req, res) => {
                 httpOnly: true, // Isse cookie client-side script se access nahi ho sakti (security)
             };
 
-            // Step 6: Token ko cookie mein bhejna aur success response dena
+            // Token ko cookie mein bhejna aur success response dena
             res.cookie("token", token, options).status(200).json({
                 success: true,
                 token,
@@ -217,6 +217,7 @@ exports.login = async (req, res) => {
 // --- Forgot Password ---
 exports.forgotPassword = async (req, res) => {
     try {
+        // get email from DB and validate the same...
         const { email } = req.body;
         const user = await User.findOne({ email });
         if (!user) return res.status(404).json({ success: false, message: "User not found" });
@@ -249,6 +250,7 @@ exports.forgotPassword = async (req, res) => {
 // --- Reset Password ---
 exports.resetPassword = async (req, res) => {
     try {
+        //Jo token user ke mail par jo token aur reset link gyi hai usi Token ke adhaar par user details fetch kar rhe...
         const { token, password } = req.body;
         const user = await User.findOne({
             resetPasswordToken: token,

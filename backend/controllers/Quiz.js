@@ -1,36 +1,36 @@
-const pdf = require('pdf-parse'); // 1. Library to extract text from PDF buffers
-const { generateQuizFromText } = require('../utils/aiHelper'); // 2. Helper that talks to Gemini AI
+const pdf = require('pdf-parse'); // Library to extract text from PDF buffers
+const { generateQuizFromText } = require('../utils/aiHelper'); // Helper that talks to Gemini AI
 
 exports.generateQuiz = async (req, res) => {
     try {
-        // 3. Destructure the instant quiz data from the request body
+        // Destructure the instant quiz data from the request body
         const { type, tags, numQuestions, difficulty } = req.body; 
         let textToProcess = ""; 
 
-        // --- SECTION A: Handle Instant Quiz (Tags) ---
-        // 4. This is the new logic that prevents the 400 error
+        // ***** SECTION A: Handle Instant Quiz (Tags) ---
+        // This is the new logic, for checking ki instant feature chalana hai ya nhi...
         if (type === 'instant' && tags) {
             console.log("⚡ Instant Quiz requested for:", tags);
             textToProcess = `Generate a ${difficulty} difficulty quiz with ${numQuestions} questions about these topics: ${tags.join(", ")}.`;
         } 
         
-        // --- SECTION B: Handle PDF Quiz (Original Logic) ---
+        // ***** SECTION B: Handle PDF Quiz (Original Logic) ---
         else if (req.file) {
             console.log("📂 PDF Quiz requested:", req.file.originalname);
             const data = await pdf(req.file.buffer);
-            textToProcess = data.text.substring(0, 15000); // 5. Limit text for AI context window
+            textToProcess = data.text.substring(0, 15000); // Limit text for AI context window
         } 
         
-        // --- SECTION C: Fallback Error ---
+        // ***** SECTION C: Error ---
         else {
-            // 6. If both are missing, then we return a 400
+            // If both are missing, then we return a 400
             return res.status(400).json({ 
                 success: false, 
                 message: "Please provide a PDF or select topics." 
             });
         }
 
-        // --- SECTION D: Unified AI Call ---
+        // ***** SECTION D: Unified AI Call ---
         console.log("🤖 Sending to AI helper...");
         const quiz = await generateQuizFromText(textToProcess);
 

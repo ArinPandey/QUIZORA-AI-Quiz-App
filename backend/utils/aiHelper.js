@@ -122,17 +122,17 @@
 
 // NEWWWWWWWWWWWWWW CODEEEEEEEEEEEEEEEE BELOWWWWWWWWWWWWWWWWWW.....
 
-const axios = require('axios'); // 1. Library for making HTTP requests to Gemini
-require("dotenv").config(); // 2. Load environment variables for the API Key
+const axios = require('axios'); // Library for making HTTP requests to Gemini
+require("dotenv").config(); // Load environment variables for the API Key
 
 exports.generateQuizFromText = async (text) => {
     try {
         console.log("🤖 AI Helper: Generating Quiz...");
 
-        const modelName = "gemini-2.5-flash"; // 3. The current AI model being used
+        const modelName = "gemini-2.5-flash"; // The current AI model being used
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${process.env.GEMINI_API_KEY}`;
 
-        // 4. We removed the hardcoded "exactly 5 questions" to let the 'text' variable handle it
+        // We removed the hardcoded "exactly 5 questions" to let the 'text' variable handle it
         const payload = {
             contents: [{
                 parts: [{
@@ -161,10 +161,10 @@ exports.generateQuizFromText = async (text) => {
             }]
         };
 
-        const response = await axios.post(API_URL, payload); // 5. Sending the request to Google
+        const response = await axios.post(API_URL, payload); // Sending the request to Google
         const rawResponseText = response.data.candidates[0].content.parts[0].text;
         
-        // 6. Robust JSON extraction to handle cases where Gemini adds extra text
+        // Robust JSON extraction to handle cases where Gemini adds extra text
         const startIndex = rawResponseText.indexOf('[');
         const endIndex = rawResponseText.lastIndexOf(']');
         
@@ -172,7 +172,7 @@ exports.generateQuizFromText = async (text) => {
             throw new Error("Invalid AI response format.");
         }
 
-        const jsonString = rawResponseText.substring(startIndex, endIndex + 1); // 7. Extract the array string
+        const jsonString = rawResponseText.substring(startIndex, endIndex + 1); // Extract the array string
         return JSON.parse(jsonString); // 8. Return the parsed array to the controller
 
     } catch (error) {

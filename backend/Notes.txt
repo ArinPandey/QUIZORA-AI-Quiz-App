@@ -1,0 +1,47 @@
+"npm init -y" for creating a project/creating package.json file...
+
+"npm i express" for installing express.js in our project...
+
+"npm i nodemon", nodemon automatically restart the server whenever I make changes to my code.
+
+mongoose, to interact with MongoDB in an organized way. It helps me define schemas and models, enforce data validation, and manage database operations easily using an object-oriented approach.
+
+cookie-parser, to read and manage cookies sent by the client. It helps me access authentication tokens and session data stored in cookies in a simple and secure way.
+
+otp-generator, to generate secure one-time passwords for features like email verification or password reset. It allows me to quickly create random OTPs without implementing custom logic.
+
+bcrypt.js, to hash user passwords before storing them in the database. This improves security by ensuring that plain text passwords are never saved and are protected against unauthorized access.
+
+dotenv, to manage environment variables like API keys and database URLs. It keeps sensitive information out of my source code and makes my project more secure and configurable.
+
+pdf-parse, to extract text content from uploaded PDF files. This allows my application to process and analyze PDF data programmatically.
+
+jsonwebtoken, to implement authentication using JWTs. It helps me securely create and verify tokens for user login sessions and protected routes.
+
+nodemailer, to send emails from my application. It enables features like OTP verification, password reset emails, and notifications.
+
+multer, to handle file uploads in my backend. It processes multipart/form-data requests and makes it easy to store and manage uploaded files.
+
+cors, to allow my frontend and backend to communicate securely when they are hosted on different origins. It prevents cross-origin request issues during development and deployment.
+
+axios, to make HTTP requests between my frontend and backend or to external APIs. It provides a simple and efficient way to handle asynchronous network calls.
+
+
+****************************************** F O L D E R S    AND    F I L E S **************************************************
+
+config/database.js : Acts as a central configuration and connection manager for the database. It defines the connection logic, how to connect the database and server and handle potential errors.
+
+models/User.js : It defines the user schema(it tells in what format the user data is to be stored in the database), description of the user data.
+
+utils/mailSender.js : It is a function, basically, jisme bas define karna hota hai ki sender kaun hoga, kisko mail jaega(user ko db se import karke), mail ka format kaisa rhega, aur sabse important mail delivery service kaunsi use kari hai(Brevo for my project)...
+
+controllers/Auth.js : Iss file me saare route handlers/functions hain. SignUp, verifyOTP, Login, ForgotPassowrd aur ResetPassword ka logic saara Auth file me likha hai... 
+
+middlewares/auth.js : Isme user ke token verification ke middleware ka logic hai...
+
+controllers/Quiz.js : Ye function/controller/handler text extract karke, aiHelper ko text bhejne ka saara logic likha hai...
+
+utils/aiHelper.js : This file sends the prompt and the extracted text inside the prompt for quiz creation...
+
+routes Folder : Isme saare route paths aur unke handlers mentioned/mounted hain...
+
