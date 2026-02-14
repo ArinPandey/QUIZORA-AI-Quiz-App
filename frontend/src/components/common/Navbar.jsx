@@ -47,7 +47,7 @@ const Navbar = () => {
 
   return (
     // The main header wrapper that changes color and border when the user scrolls.
-    <header className={`backdrop-blur-md sticky top-0 z-50 transition-all duration-300 ${
+    <header className={`backdrop-blur-md sticky top-1 rounded-3xl z-50 transition-all duration-300 ${
       isScrolled ? 'bg-white/95 border-b border-gray-200 shadow-sm' : 'bg-white/10 border-b border-white/20'
     }`}>
       {/*The navigation container that aligns the logo, center menu, and right-side links. */}
@@ -94,13 +94,13 @@ const Navbar = () => {
           {token === null ? (
             // Links shown to guests, including a highlighted "Sign Up" button.
             <>
-              <NavLink to="/quiz" className={({ isActive }) => `text-sm transition-colors ${isScrolled ? 'text-gray-600' : 'text-gray-300'} ${isActive ? 'text-indigo-400 font-semibold' : ''}`}>Try Me</NavLink>
-              <NavLink to="/login" className={({ isActive }) => `text-sm transition-colors ${isScrolled ? 'text-gray-600' : 'text-gray-300'} ${isActive ? 'text-indigo-400 font-semibold' : ''}`}>Login</NavLink>
+              <NavLink to="/quiz" className={({ isActive }) => `text-sm transition-colors ${isScrolled ? 'bg-gradient-to-r from-teal-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text' : 'bg-gradient-to-l from-purple-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text'} ${isActive ? 'bg-gradient-to-r from-teal-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text font-semibold' : ''}`}>Try Me</NavLink>
+              <NavLink to="/login" className={({ isActive }) => `text-sm transition-colors ${isScrolled ? 'text-teal-700' : 'text-fuschia-100'} ${isActive ? 'bg-gradient-to-l from-purple-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text font-semibold' : ''}`}>Login</NavLink>
               <NavLink to="/signup" className={`px-5 py-2 rounded-md text-sm font-semibold ${isScrolled ? 'bg-indigo-600 text-white' : 'bg-white/20 text-white'}`}>Sign Up</NavLink>
             </>
           ) : (
             // The logout button that clears the user session and redirects to the home page.
-            <button onClick={() => dispatch(logout(navigate))} className="flex items-center space-x-2 px-5 py-2 rounded-md text-sm font-semibold bg-red-500 text-white hover:bg-red-600 transition-all cursor-pointer">
+            <button onClick={() => dispatch(logout(navigate))} className="flex items-center space-x-2 px-5 py-2 rounded-md text-sm font-semibold bg-gradient-to-tr from-[#22c55e] via-[#0e7490] to-[#3b82f6] text-white hover:bg-gradient-to-bl from-[#84cc16] via-[#16a34a] to-[#0f766e] transition-all cursor-pointer">
               <LogOut size={18} />
               <span>Logout</span>
             </button>
