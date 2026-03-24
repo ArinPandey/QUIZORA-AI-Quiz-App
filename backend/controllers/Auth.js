@@ -13,6 +13,9 @@ const crypto = require('crypto');
 
 require("dotenv").config();
 
+// To check whether hamara password valid constraints k sath hai ya nhi...
+const valStr = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$/;
+
 // Signup logic
 exports.signup = async (req, res) => {
     try {
@@ -20,6 +23,13 @@ exports.signup = async (req, res) => {
 
         if (!firstName || !lastName || !email || !password) {
             return res.status(400).json({ success: false, message: "Please fill all details." });
+        }
+
+        if (!valStr.test(password)) {
+            return res.status(400).json({
+                success: false,
+                message: "Password must be at least 6 characters long and include at least one uppercase letter, one lowercase letter, and one special character.",
+            });
         }
 
         // Check if user already exists (regardless of verification status)
@@ -252,6 +262,14 @@ exports.resetPassword = async (req, res) => {
     try {
         //Jo token user ke mail par jo token aur reset link gyi hai usi Token ke adhaar par user details fetch kar rhe...
         const { token, password } = req.body;
+
+        if (!valStr.test(password)) {
+            return res.status(400).json({
+                success: false,
+                message: "New password must be 6+ chars with uppercase, lowercase, and a special character.",
+            });
+        }
+
         const user = await User.findOne({
             resetPasswordToken: token,
             resetPasswordExpires: { $gt: Date.now() },
