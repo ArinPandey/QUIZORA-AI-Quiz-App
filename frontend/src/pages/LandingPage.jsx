@@ -84,7 +84,7 @@ const LandingPage = () => {
   return (
     <div ref={main} className="bg-white text-gray-800 font-unbounded mt-[-31px]">
 
-      {/* 1. NEW: Features Indicator (Positioned relative to the header) */}
+      {/* Features Indicator (Positioned relative to the header) */}
       {token && (
         <div className="features-indicator absolute top-25 left-1/2 transform -translate-x-1/2 z-[60] flex flex-col items-center pointer-events-none">
           <span className="text-xs text-rose-200 font-medium uppercase tracking-widest drop-shadow-md">Features</span>

@@ -57,7 +57,7 @@ const SignupPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-blue-600 via-blue-200 to-blue-100 flex items-center justify-center p-4 relative mt-[-32px]">
+        <div className="min-h-screen bg-gradient-to-br from-rose-400 via-orange-300 to-amber-200 flex items-center justify-center p-4 relative mt-[-32px]">
             {/* Background overlay and elements (kept exactly as you provided) */}
             <div className="absolute inset-0 bg-opacity-20"></div>
             <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
