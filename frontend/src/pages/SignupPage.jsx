@@ -33,6 +33,14 @@ const SignupPage = () => {
     // Handle submission of the initial signup details
     const handleSignupSubmit = (e) => {
         e.preventDefault();
+
+        const valStr = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$/;
+
+        if (!valStr.test(password)) {
+            toast.error("Password must be 6+ chars with uppercase, lowercase, and a special character (@, #, $, etc.)");
+            return; // Stop the signup process here
+        }
+
         // Pass a callback function to signup that sets otpSent to true on success
         dispatch(signup(firstName, lastName, email, password, () => setOtpSent(true)));
     };

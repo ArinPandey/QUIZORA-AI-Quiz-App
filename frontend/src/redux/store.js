@@ -9,4 +9,4 @@ export const store = configureStore({
     ui: uiReducer,
     quiz: quizReducer,
   },
-});
+}); 

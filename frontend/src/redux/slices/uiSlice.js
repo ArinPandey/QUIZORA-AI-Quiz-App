@@ -11,4 +11,4 @@ const uiSlice = createSlice({
 });
 
 export const { setNavbarMenuOpen } = uiSlice.actions;
-export default uiSlice.reducer;
+export default uiSlice.reducer; 

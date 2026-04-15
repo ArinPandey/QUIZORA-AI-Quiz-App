@@ -94,8 +94,8 @@ const Navbar = () => {
           {token === null ? (
             // Links shown to guests, including a highlighted "Sign Up" button.
             <>
-              <NavLink to="/quiz" className={({ isActive }) => `text-sm transition-colors ${isScrolled ? 'bg-gradient-to-r from-teal-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text' : 'bg-gradient-to-l from-purple-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text'} ${isActive ? 'bg-gradient-to-r from-teal-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text font-semibold' : ''}`}>Try Me</NavLink>
-              <NavLink to="/login" className={({ isActive }) => `text-sm transition-colors ${isScrolled ? 'text-teal-700' : 'text-fuschia-100'} ${isActive ? 'bg-gradient-to-l from-purple-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text font-semibold' : ''}`}>Login</NavLink>
+              <NavLink to="/quiz" className={({ isActive }) => `text-lg transition-colors ${isScrolled ? 'bg-gradient-to-r from-teal-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text' : 'bg-gradient-to-l from-purple-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text'} ${isActive ? 'bg-gradient-to-r from-teal-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text font-semibold' : ''}`}>Try Me</NavLink>
+              <NavLink to="/login" className={({ isActive }) => `text-lg transition-colors ${isScrolled ? 'text-rose-900' : 'text-rose-600'} ${isActive ? 'bg-gradient-to-l from-purple-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text font-semibold' : ''}`}>Login</NavLink>
               <NavLink to="/signup" className={`px-5 py-2 rounded-md text-sm font-semibold ${isScrolled ? 'bg-indigo-600 text-white' : 'bg-white/20 text-white'}`}>Sign Up</NavLink>
             </>
           ) : (

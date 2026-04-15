@@ -26,14 +26,14 @@ const InstantQuiz = () => {
     }
     
     if (topic.trim() && !customTags.includes(topic.trim())) {
-      setCustomTags([...customTags, topic.trim()]);
+      setCustomTags([...customTags, topic.trim()]);   //.trim() method aage aur piche ke spaces delete kar deta hai...
       setTopic("");
     }
   };
 
   //Removes a specific custom tag when the 'X' is clicked
   const removeTag = (tagToRemove) => {
-    setCustomTags(customTags.filter(tag => tag !== tagToRemove));
+    setCustomTags(customTags.filter(tag => tag !== tagToRemove)); //custom tags (array) me wo saari values/tags daaldo jo != tagToRemove ke equal nhi hain. And for this we used .filter method... 
   };
 
   //Handles the final API call
