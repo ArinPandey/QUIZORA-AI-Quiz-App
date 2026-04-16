@@ -5,7 +5,7 @@
 // const { generateQuiz } = require('../controllers/Quiz'); 
 // const { auth } = require('../middlewares/auth');
 
-// console.log("📌 quizRoutes loaded");
+// console.log("quizRoutes loaded");
 
 // const upload = multer({ storage: multer.memoryStorage() });
 

@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { ChevronRight, ChevronLeft, RotateCcw, CheckCircle, XCircle, Trophy, BookOpen } from 'lucide-react';
+import { ChevronRight, ChevronLeft, RotateCcw, CheckCircle, XCircle, Trophy, BookOpen, Award } from 'lucide-react';
 import { quizQuestions as localQuizQuestions } from '../data/quizQuestions';
+
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import confetti from 'canvas-confetti';
 
 const QuizPage = () => {
     // --- STATE AND REFS ---
@@ -81,7 +85,26 @@ const QuizPage = () => {
             setTimer(60);
         } else {
             setGameState('results');
+
+            handleConfetti();
         }
+    };
+
+    const handleConfetti = () => {
+        const duration = 3 * 1000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+        const randomInRange = (min, max) => Math.random() * (max - min) + min;
+
+        const interval = setInterval(function() {
+            const timeLeft = animationEnd - Date.now();
+            if (timeLeft <= 0) return clearInterval(interval);
+
+            const particleCount = 50 * (timeLeft / duration);
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+        }, 250);
     };
 
     const previousQuestion = () => {
@@ -128,7 +151,7 @@ const QuizPage = () => {
     };
     
     const StartScreen = () => (
-        <div className="min-h-screen bg-gradient-to-br from-violet-900 via-purple-800 to-indigo-900 flex items-center justify-center p-4 mt-[-20px]">
+        <div className="min-h-screen bg-gradient-to-br from-violet-900 via-purple-800 to-indigo-900 flex items-center justify-center p-4 mt-[-40px]">
             <div className="absolute inset-0 bg-black/20"></div>
             <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
             <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
@@ -182,7 +205,7 @@ const QuizPage = () => {
         const progress = ((currentQuestion + 1) / questions.length) * 100;
         
         return (
-            <div className="min-h-[calc(100vh-64px)] bg-gradient-to-r from-emerald-600 via-teal-700 to-emerald-800 py-8 px-4 flex items-center mt-[-20px]">
+            <div className="min-h-[calc(100vh-64px)] bg-gradient-to-br from-emerald-600 via-green-500 to-teal-500 py-8 px-4 flex items-center mt-[-30px]">
                 <div className="max-w-2xl mx-auto">
                     <div className="flex justify-between items-center mb-2 text-gray-700">
                         <p>Question {currentQuestion + 1} of {questions.length}</p>
@@ -236,58 +259,155 @@ const QuizPage = () => {
         );
     };
 
+    // const ResultsScreen = () => {
+    //     if (questions.length === 0) return null;
+    //     const percentage = Math.round((score / questions.length) * 100);
+    //     return (
+    //         <div className="flex items-center justify-center p-4 min-h-[calc(100vh-64px)]  bg-gradient-to-r from-emerald-600 via-teal-700 to-emerald-800 py-8 px-4 mt-[-20px]">
+    //             <div className="max-w-2xl mx-auto w-full">
+    //                 <div className="bg-white rounded-2xl shadow-lg p-8 mb-6 text-center">
+    //                     <Trophy className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
+    //                     <h1 className="text-3xl font-bold text-gray-900 mb-2 font-unbounded">Quiz Complete!</h1>
+    //                     <p className="text-gray-600">Here's how you performed</p>
+    //                     <div className="grid grid-cols-2 gap-4 my-6">
+    //                         <div className="bg-green-200 rounded-lg p-4"><div className="text-2xl font-bold text-green-800">{score}</div><div className="text-green-600">Correct</div></div>
+    //                         <div className="bg-red-200 rounded-lg p-4"><div className="text-2xl font-bold text-red-800">{questions.length - score}</div><div className="text-red-600">Incorrect</div></div>
+    //                     </div>
+    //                     <div className="text-center mb-6">
+    //                         <div className="text-5xl font-extrabold text-indigo-600 mb-2">{percentage}%</div>
+    //                         <div className="text-gray-700 text-lg">Final Score</div>
+    //                     </div>
+    //                 </div>
+    //                 <div className="bg-white rounded-2xl shadow-lg p-8 mb-6">
+    //                     <h2 className="text-xl font-bold text-gray-900 mb-6">Question Review</h2>
+    //                     <div className="space-y-4 max-h-60 overflow-y-auto pr-2">
+    //                         {answers.map((answer, index) => (
+    //                             <div key={answer.id || index} className="border-l-4 border-gray-200 pl-4">
+    //                                 <div className="flex items-start justify-between">
+    //                                     <div className="flex-1">
+    //                                         <h3 className="font-medium text-gray-900 mb-2">{index + 1}. {answer.question}</h3>
+    //                                         <div className="text-sm space-y-1">
+    //                                             <div className={`flex items-center space-x-2 ${answer.isCorrect ? 'text-green-700' : 'text-red-700'}`}>
+    //                                                 {answer.isCorrect ? <CheckCircle className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
+    //                                                 <span>Your answer: {answer.selectedAnswer !== null ? answer.options[answer.selectedAnswer] : 'Not Answered'}</span>
+    //                                             </div>
+    //                                             {!answer.isCorrect && (
+    //                                                 <div className="text-green-700 flex items-center space-x-2">
+    //                                                     <CheckCircle className="w-4 h-4" />
+    //                                                     <span>Correct answer: {answer.options[answer.correctAnswer]}</span>
+    //                                                 </div>
+    //                                             )}
+    //                                         </div>
+    //                                     </div>
+    //                                     <span className={`px-2 py-1 rounded text-xs font-medium ${answer.isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+    //                                         {answer.category || "General"}
+    //                                     </span>
+    //                                 </div>
+    //                             </div>
+    //                         ))}
+    //                     </div>
+    //                 </div>
+    //                 <button onClick={restartQuiz} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center space-x-2 cursor-pointer">
+    //                     <RotateCcw className="w-4 h-4" />
+    //                     <span>Take Quiz Again</span>
+    //                 </button>
+    //             </div>
+    //         </div>
+    //     );
+    // };
+
     const ResultsScreen = () => {
         if (questions.length === 0) return null;
         const percentage = Math.round((score / questions.length) * 100);
+
+        // Dynamic Feedback
+        const getFeedback = () => {
+            if (percentage >= 80) return { msg: "Master of Knowledge!", color: "text-yellow-600", sub: "You've absolutely crushed this quiz!" };
+            if (percentage >= 50) return { msg: "Great Effort!", color: "text-blue-600", sub: "You have a solid grasp, keep practicing!" };
+            return { msg: "Keep Learning!", color: "text-orange-600", sub: "Don't give up! Review your answers below." };
+        };
+        const feedback = getFeedback();
+
         return (
-            <div className="flex items-center justify-center p-4 min-h-[calc(100vh-64px)]  bg-gradient-to-r from-emerald-600 via-teal-700 to-emerald-800 py-8 px-4 mt-[-20px]">
-                <div className="max-w-2xl mx-auto w-full">
-                    <div className="bg-white rounded-2xl shadow-lg p-8 mb-6 text-center">
-                        <Trophy className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2 font-unbounded">Quiz Complete!</h1>
-                        <p className="text-gray-600">Here's how you performed</p>
-                        <div className="grid grid-cols-2 gap-4 my-6">
-                            <div className="bg-green-200 rounded-lg p-4"><div className="text-2xl font-bold text-green-800">{score}</div><div className="text-green-600">Correct</div></div>
-                            <div className="bg-red-200 rounded-lg p-4"><div className="text-2xl font-bold text-red-800">{questions.length - score}</div><div className="text-red-600">Incorrect</div></div>
-                        </div>
-                        <div className="text-center mb-6">
-                            <div className="text-5xl font-extrabold text-indigo-600 mb-2">{percentage}%</div>
-                            <div className="text-gray-700 text-lg">Final Score</div>
-                        </div>
-                    </div>
-                    <div className="bg-white rounded-2xl shadow-lg p-8 mb-6">
-                        <h2 className="text-xl font-bold text-gray-900 mb-6">Question Review</h2>
-                        <div className="space-y-4 max-h-60 overflow-y-auto pr-2">
-                            {answers.map((answer, index) => (
-                                <div key={answer.id || index} className="border-l-4 border-gray-200 pl-4">
-                                    <div className="flex items-start justify-between">
-                                        <div className="flex-1">
-                                            <h3 className="font-medium text-gray-900 mb-2">{index + 1}. {answer.question}</h3>
-                                            <div className="text-sm space-y-1">
-                                                <div className={`flex items-center space-x-2 ${answer.isCorrect ? 'text-green-700' : 'text-red-700'}`}>
-                                                    {answer.isCorrect ? <CheckCircle className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
-                                                    <span>Your answer: {answer.selectedAnswer !== null ? answer.options[answer.selectedAnswer] : 'Not Answered'}</span>
-                                                </div>
-                                                {!answer.isCorrect && (
-                                                    <div className="text-green-700 flex items-center space-x-2">
-                                                        <CheckCircle className="w-4 h-4" />
-                                                        <span>Correct answer: {answer.options[answer.correctAnswer]}</span>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <span className={`px-2 py-1 rounded text-xs font-medium ${answer.isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                                            {answer.category || "General"}
-                                        </span>
+            <div className="flex items-center justify-center p-4 min-h-[calc(100vh-64px)] bg-gradient-to-br from-indigo-900 via-purple-900 to-black py-12 px-4 mt-[-35px] overflow-hidden">
+                <div className="max-w-4xl mx-auto w-full relative z-10">
+                    
+                    {/* Main Score Card */}
+                    <div className="bg-white rounded-[2rem] shadow-2xl p-8 mb-8 text-center border border-white/20 backdrop-blur-sm relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500"></div>
+                        
+                        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                            {/* Circular Progress Section */}
+                            <div className="w-48 h-48 flex-shrink-0">
+                                <CircularProgressbar
+                                    value={percentage}
+                                    text={`${percentage}%`}
+                                    styles={buildStyles({
+                                        pathColor: percentage >= 80 ? '#EAB308' : '#4F46E5',
+                                        textColor: '#1F2937',
+                                        trailColor: '#F3F4F6',
+                                        strokeLinecap: 'round',
+                                        textSize: '18px',
+                                        pathTransitionDuration: 1.5,
+                                    })}
+                                />
+                            </div>
+
+                            {/* Text Summary Section */}
+                            <div className="text-left flex-1">
+                                <h1 className={`text-4xl font-black mb-2 ${feedback.color}`}>{feedback.msg}</h1>
+                                <p className="text-gray-600 text-lg mb-6">{feedback.sub}</p>
+                                
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="bg-green-50 rounded-2xl p-4 border border-green-100">
+                                        <div className="text-3xl font-bold text-green-700">{score}</div>
+                                        <div className="text-green-600 text-sm font-medium uppercase tracking-wider">Correct</div>
+                                    </div>
+                                    <div className="bg-red-50 rounded-2xl p-4 border border-red-100">
+                                        <div className="text-3xl font-bold text-red-700">{questions.length - score}</div>
+                                        <div className="text-red-600 text-sm font-medium uppercase tracking-wider">Incorrect</div>
                                     </div>
                                 </div>
-                            ))}
+                            </div>
                         </div>
                     </div>
-                    <button onClick={restartQuiz} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center space-x-2 cursor-pointer">
-                        <RotateCcw className="w-4 h-4" />
-                        <span>Take Quiz Again</span>
-                    </button>
+
+                    {/* Review & Actions Section */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div className="md:col-span-2 bg-white rounded-[2rem] shadow-xl p-8">
+                            <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                                <BookOpen className="text-indigo-600" /> Detailed Review
+                            </h2>
+                            <div className="space-y-6 max-h-[400px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-gray-200">
+                                {answers.map((answer, index) => (
+                                    <div key={index} className={`p-4 rounded-2xl border ${answer.isCorrect ? 'border-green-100 bg-green-50/30' : 'border-red-100 bg-red-50/30'}`}>
+                                        <p className="font-bold text-gray-800 mb-2">{index + 1}. {answer.question}</p>
+                                        <p className={`text-sm ${answer.isCorrect ? 'text-green-700' : 'text-red-700'} font-medium`}>
+                                            Your choice: {answer.selectedAnswer !== null ? answer.options[answer.selectedAnswer] : 'Skipped'}
+                                        </p>
+                                        {!answer.isCorrect && (
+                                            <p className="text-sm text-green-700 mt-1 font-bold">
+                                                Correct: {answer.options[answer.correctAnswer]}
+                                            </p>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Quick Actions Sidebar */}
+                        <div className="space-y-4">
+                            <button onClick={restartQuiz} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-5 px-6 rounded-2xl flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-lg cursor-pointer">
+                                <RotateCcw size={20} /> Retake Quiz
+                            </button>
+                            <div className="p-6 bg-gradient-to-br from-amber-400 to-orange-500 rounded-[2rem] text-white shadow-xl relative overflow-hidden group">
+                                <Award className="absolute -right-4 -bottom-4 w-24 h-24 text-white/20 group-hover:scale-110 transition-transform" />
+                                <p className="text-sm font-bold uppercase tracking-widest opacity-80">Keep it up!</p>
+                                <h3 className="text-xl font-black">Next Up</h3>
+                                <p className="text-xs mt-2 opacity-90">Upload more PDFs to master new topics.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

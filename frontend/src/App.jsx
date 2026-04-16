@@ -31,13 +31,13 @@ function App() {
           <Route 
             path="/quiz" 
             element={
-              <ProtectedRoute> {/* Wrap QuizPage with ProtectedRoute */}
+              <ProtectedRoute> 
                 <QuizPage />
               </ProtectedRoute>
             } 
           />
           <Route 
-            path="/dashboard" // Add the new protected route for the Dashboard
+            path="/dashboard" 
             element={
               <ProtectedRoute>
                 <DashboardPage />
@@ -45,9 +45,19 @@ function App() {
             }
           />
 
+          <Route 
+            path="/instant-quiz"
+            element={
+              <ProtectedRoute>
+                <InstantQuiz />
+              </ProtectedRoute>
+            } 
+          />
+
+          {/*Public Routes*/}
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="/instant-quiz" element={<InstantQuiz />} />
+          
         </Routes>
       </main>
       <Toaster />
