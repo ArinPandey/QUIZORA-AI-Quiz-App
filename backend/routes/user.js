@@ -7,6 +7,7 @@ const { signup, login, verifyOTP, forgotPassword, resetPassword } = require("../
 
 // Middleware ko import kar rahe hain
 const { auth } = require("../middlewares/auth");
+const { loginLimiter } = require('../middlewares/rateLimiter');
 
 // ***** Public Routes (Inpar security nahi hai)
 
@@ -15,7 +16,8 @@ const { auth } = require("../middlewares/auth");
 router.post("/signup", signup);
 
 // Route for user login (hum isse baad mein banayenge)
-router.post("/login", login);
+// router.post("/login", login);
+router.post("/login", loginLimiter, login); // rate limiter lagaya...
 
 router.post("/verify-otp", verifyOTP);
 
