@@ -400,12 +400,12 @@ const QuizPage = () => {
                             <button onClick={restartQuiz} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-5 px-6 rounded-2xl flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-lg cursor-pointer">
                                 <RotateCcw size={20} /> Retake Quiz
                             </button>
-                            <div className="p-6 bg-gradient-to-br from-amber-400 to-orange-500 rounded-[2rem] text-white shadow-xl relative overflow-hidden group">
+                            {/*<div className="p-6 bg-gradient-to-br from-amber-400 to-orange-500 rounded-[2rem] text-white shadow-xl relative overflow-hidden group">
                                 <Award className="absolute -right-4 -bottom-4 w-24 h-24 text-white/20 group-hover:scale-110 transition-transform" />
                                 <p className="text-sm font-bold uppercase tracking-widest opacity-80">Keep it up!</p>
                                 <h3 className="text-xl font-black">Next Up</h3>
                                 <p className="text-xs mt-2 opacity-90">Upload more PDFs to master new topics.</p>
-                            </div>
+                            </div>*/}
                         </div>
                     </div>
                 </div>
