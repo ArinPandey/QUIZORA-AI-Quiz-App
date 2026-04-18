@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom'; // Added Link
 import { login } from '../operations/authAPI';
+import {Eye, EyeOff} from "lucide-react";
 
 const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const [formData, setFormData] = useState({
         email: '',
@@ -54,13 +57,21 @@ const LoginPage = () => {
                     <div className="relative">
                         <input
                             required
-                            type="password"
+                            // type="password"
+                            type={showPassword ? "text" : "password"}
                             name="password"
                             value={password}
                             onChange={handleOnChange}
                             placeholder="Password"
                             className="w-full px-4 py-3 bg-white/50 backdrop-blur-sm border border-gray-300/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 placeholder-gray-500"
                         />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-4 top-1/2 -translate-y-5 text-gray-600 hover:text-gray-900 transition-colors cursor-pointer"
+                        >
+                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                        </button>
                         {/* --- ADDED FORGOT PASSWORD LINK --- */}
                         <div className="flex justify-end mt-2 px-1">
                             <Link 
