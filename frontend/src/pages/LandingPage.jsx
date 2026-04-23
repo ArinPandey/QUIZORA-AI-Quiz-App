@@ -21,6 +21,7 @@ const LandingPage = () => {
   useEffect(() => {
     // GSAP context provides easy cleanup
     const ctx = gsap.context(() => {
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".video-section",
@@ -30,12 +31,21 @@ const LandingPage = () => {
           pin: true,
         }
       });
-
+      // To Scale the video
       tl.to(".scroll-video", {
         scale: 1.9,
         ease: "power1.inOut"
       });
 
+      // Fade in the text (Starts near the end of the scale)
+      tl.to(".impact-text", {
+        opacity: 1,
+        y: 0,
+        ease: "power2.out",
+        duration: 0.5
+      }, "-=0.5"); // This makes it overlap with the last 0.5s of the video scaling
+
+      //For top features (OLD!)...
       // if (token) {
       //   // Initial entrance
       //   gsap.from(".features-indicator", {
@@ -55,6 +65,8 @@ const LandingPage = () => {
       //     ease: "power1.inOut"
       //   });
       // }
+
+      // For top features section...
       if (token) {
         if (isNavbarMenuOpen) {
           // Fade out when dropdown is open
@@ -119,7 +131,7 @@ const LandingPage = () => {
       </div>
 
       {/* Video Scroll Animation Section */}
-      <div className="video-section h-screen w-full bg-gradient-to-br from-gray-200 to-gray-500 flex items-center justify-center overflow-hidden">
+      <div className="video-section h-screen w-full bg-gradient-to-br from-gray-200 to-gray-500 flex items-center justify-center overflow-hidden relative">
         <video 
           className="scroll-video w-96 h-64 object-cover rounded-2xl shadow-2xl"
           style={{ transformOrigin: 'center center', filter: 'brightness(0.9) contrast(1.1)' }}
@@ -128,6 +140,10 @@ const LandingPage = () => {
           <source src={heroVideo} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+        {/* --- NEW TEXT ELEMENT --- */}
+        <h2 className="impact-text absolute bottom-12 text-3xl md:text-5xl font-black text-gray-800 opacity-0 transform translate-y-10 z-20 text-center w-full px-4 tracking-tighter">
+          All you need for <span className="text-indigo-600">impactful learning</span>
+        </h2>
       </div>
 
       {/* Hero Section */}
