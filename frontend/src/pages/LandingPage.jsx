@@ -107,7 +107,7 @@ const LandingPage = () => {
       )}
       
       {/* App Name Full Screen Section */}
-      <div className="h-screen flex items-center justify-center bg-gradient-to-b from-black via-zinc-900 to-zinc-700 relative overflow-hidden">
+      <div className="h-screen flex items-center justify-center bg-[#141413] relative overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='65' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}></div>
         <div className="text-center z-10">
           <h1 className="text-8xl md:text-9xl lg:text-[12rem] text-rose-300 tracking-wider select-none center-glow duration-300 hover:scale-101 ease-in-out">
@@ -145,6 +145,7 @@ const LandingPage = () => {
           All you need for <span className="text-indigo-600">impactful learning</span>
         </h2>
       </div>
+      
 
       {/* Hero Section */}
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-400 to-gray-200 p-6">
@@ -186,17 +187,17 @@ const LandingPage = () => {
             Quizora is more than just a quiz app. It's a powerful tool designed to enhance your learning experience.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 features-grid">
-            <div className="feature-card p-8 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200">
+            <div className="feature-card p-8 bg-[#faf9f5] rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-200">
               <div className="bg-indigo-100 text-indigo-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6"><FileText size={32} /></div>
               <h3 className="text-2xl font-bold mb-3">AI Quiz Generation</h3>
               <p className="text-gray-600 font-sans">Our AI reads your PDFs, understands the context, and generates relevant questions in seconds.</p>
             </div>
-            <div className="feature-card p-8 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div className="feature-card p-8 bg-[#faf9f5] rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300">
               <div className="bg-indigo-100 text-indigo-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6"><UserCheck size={32} /></div>
               <h3 className="text-2xl font-bold mb-3">Instant Quiz</h3>
               <p className="text-gray-600 font-sans">Create quizzes instantly by choosing topic, level, and difficulty.</p>
             </div>
-            <div className="feature-card p-8 bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div className="feature-card p-8 bg-[#faf9f5] rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300">
               <div className="bg-indigo-100 text-indigo-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6"><Trophy size={32} /></div>
               <h3 className="text-2xl font-bold mb-3">Compete & Conquer</h3>
               <p className="text-gray-600 font-sans">Challenge your friends, compete on leaderboards, and prove your mastery of the subject matter.</p>

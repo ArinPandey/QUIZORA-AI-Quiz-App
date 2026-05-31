@@ -5,18 +5,18 @@ require("dotenv").config();
 
 // Database se connect karne ka function
 const connectDB = () => {
-    console.log("🔄 Attempting to connect to MongoDB...");
+    console.log("***Attempting to connect to MongoDB...");
     
     mongoose.connect(process.env.DATABASE_URL)
     .then(() => {
         // Agar connection safal hota hai, to console mein message print hoga
-        console.log("✅ MongoDB connected successfully");
-        console.log(`📊 Database: ${mongoose.connection.name}`);
-        console.log(`📍 Host: ${mongoose.connection.host}:${mongoose.connection.port}`);
+        console.log("***MongoDB connected successfully***");
+        console.log(`***Database: ${mongoose.connection.name}`);
+        console.log(`***Host: ${mongoose.connection.host}:${mongoose.connection.port}`);
     })
     .catch((error) => {
         // Agar connection mein koi error aata hai
-        console.error("❌ MongoDB connection failed");
+        console.error("***MongoDB connection failed");
         console.error("Error details:", error.message);
         // Process ko exit kar do taaki server aage na chale
         process.exit(1);
@@ -25,15 +25,15 @@ const connectDB = () => {
 
 // Event listeners
 mongoose.connection.on('connected', () => {
-    console.log('🗄️  Mongoose connected to DB');
+    console.log('***Mongoose connected to DB');
 });
 
 mongoose.connection.on('error', (err) => {
-    console.error('❌ Mongoose connection error:', err);
+    console.error('***Mongoose connection error:', err);
 });
 
 mongoose.connection.on('disconnected', () => {
-    console.log('⚠️  Mongoose disconnected');
+    console.log('***Mongoose disconnected');
 });
 
 module.exports = connectDB;
