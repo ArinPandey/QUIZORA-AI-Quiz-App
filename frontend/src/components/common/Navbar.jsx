@@ -48,7 +48,7 @@ const Navbar = () => {
   return (
     // The main header wrapper that changes color and border when the user scrolls.
     <header className={`backdrop-blur-md sticky top-1 rounded-3xl z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/95 border-b border-gray-200 shadow-sm' : 'bg-white/10 border-b border-white/20'
+      isScrolled ? 'bg-teal-50 border-b border-gray-200 shadow-sm' : 'bg-white/10 border-b border-white/20'
     }`}>
       {/*The navigation container that aligns the logo, center menu, and right-side links. */}
       <nav className="container mx-auto px-6 py-3 flex justify-between items-center">
@@ -94,8 +94,8 @@ const Navbar = () => {
           {token === null ? (
             // Links shown to guests, including a highlighted "Sign Up" button.
             <>
-              <NavLink to="/quiz" className={({ isActive }) => `text-lg transition-colors ${isScrolled ? 'bg-gradient-to-r from-teal-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text' : 'bg-gradient-to-l from-purple-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text'} ${isActive ? 'bg-gradient-to-r from-teal-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text font-semibold' : ''}`}>Try Me</NavLink>
-              <NavLink to="/login" className={({ isActive }) => `text-lg transition-colors ${isScrolled ? 'text-rose-900' : 'text-rose-600'} ${isActive ? 'bg-gradient-to-l from-purple-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text font-semibold' : ''}`}>Login</NavLink>
+              <NavLink to="/quiz" className={({ isActive }) => `text-lg transition-colors ${isScrolled ? 'text-rose-900 bg-clip-text' : 'text-rose-600 bg-clip-text'} ${isActive ? 'bg-gradient-to-r from-teal-500 via-orange-500 to-yellow-500 text-transparent bg-clip-text font-semibold' : ''}`}>Try Me</NavLink>
+              <NavLink to="/login" className={({ isActive }) => `text-lg transition-colors ${isScrolled ? 'text-rose-900' : 'text-rose-600'} ${isActive ? 'text-rose-600 font-semibold' : ''}`}>Login</NavLink>
               <NavLink to="/signup" className={`px-5 py-2 rounded-md text-sm font-semibold ${isScrolled ? 'bg-indigo-600 text-white' : 'bg-white/20 text-white'}`}>Sign Up</NavLink>
             </>
           ) : (

@@ -113,7 +113,6 @@ const LandingPage = () => {
           <h1 className="text-8xl md:text-9xl lg:text-[12rem] text-rose-300 tracking-wider select-none center-glow duration-300 hover:scale-101 ease-in-out">
             QUIZORA
           </h1>
-          {/*<div className="mt-6 w-32 h-1 bg-gradient-to-r from-pink-400 to-purple-300 mx-auto rounded-full"></div>*/}
           <div className="mt-6 flex items-center justify-center gap-4">
             <div className="w-24 h-1 bg-gradient-to-r from-pink-400 to-purple-300 rounded-full"></div>
 
@@ -131,7 +130,7 @@ const LandingPage = () => {
       </div>
 
       {/* Video Scroll Animation Section */}
-      <div className="video-section h-screen w-full bg-gradient-to-br from-gray-200 to-gray-500 flex items-center justify-center overflow-hidden relative">
+      <div className="video-section h-screen w-full bg-[#FFEEB3] flex items-center justify-center overflow-hidden relative">
         <video 
           className="scroll-video w-96 h-64 object-cover rounded-2xl shadow-2xl"
           style={{ transformOrigin: 'center center', filter: 'brightness(0.9) contrast(1.1)' }}
@@ -148,7 +147,7 @@ const LandingPage = () => {
       
 
       {/* Hero Section */}
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-400 to-gray-200 p-6">
+      <div className="min-h-screen flex items-center justify-center bg-[#EFD345] p-6">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-extrabold text-gray-800 animate-fade-in-down">
             Transform Documents into{" "}
@@ -180,29 +179,29 @@ const LandingPage = () => {
       </div>
 
       {/* Features Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-white to-gray-400">
-        <div className="container mx-auto text-center">
+      <section className="h-150 py-20 px-6 bg-[#FFEEB3]">
+        <div className="container mx-auto w-10/12 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Unlock Your Learning Potential</h2>
           <p className="text-gray-600 max-w-2xl mx-auto mb-12 font-sans">
             Quizora is more than just a quiz app. It's a powerful tool designed to enhance your learning experience.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 features-grid">
-            <div className="feature-card p-8 bg-[#faf9f5] rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-200">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 features-grid">
+            <div className="feature-card p-8 bg-[#F2DF3A] rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-200">
               <div className="bg-indigo-100 text-indigo-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6"><FileText size={32} /></div>
               <h3 className="text-2xl font-bold mb-3">AI Quiz Generation</h3>
               <p className="text-gray-600 font-sans">Our AI reads your PDFs, understands the context, and generates relevant questions in seconds.</p>
             </div>
-            <div className="feature-card p-8 bg-[#faf9f5] rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300">
+            <div className="feature-card p-8 bg-[#F2DF3A] rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300">
               <div className="bg-indigo-100 text-indigo-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6"><UserCheck size={32} /></div>
               <h3 className="text-2xl font-bold mb-3">Instant Quiz</h3>
               <p className="text-gray-600 font-sans">Create quizzes instantly by choosing topic, level, and difficulty.</p>
             </div>
-            <div className="feature-card p-8 bg-[#faf9f5] rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300">
+            {/*<div className="feature-card p-8 bg-[#faf9f5] rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300">
               <div className="bg-indigo-100 text-indigo-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6"><Trophy size={32} /></div>
               <h3 className="text-2xl font-bold mb-3">Compete & Conquer</h3>
               <p className="text-gray-600 font-sans">Challenge your friends, compete on leaderboards, and prove your mastery of the subject matter.</p>
               <p className="text-red-900 font-sans">! Coming Soon</p>
-            </div>
+            </div>*/}
           </div>
         </div>
       </section>
