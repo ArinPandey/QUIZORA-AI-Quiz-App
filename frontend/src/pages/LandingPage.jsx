@@ -110,7 +110,7 @@ const LandingPage = () => {
       <div className="h-screen flex items-center justify-center bg-[#141413] relative overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='65' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}></div>
         <div className="text-center z-10">
-          <h1 className="text-8xl md:text-9xl lg:text-[12rem] text-rose-300 tracking-wider select-none center-glow duration-300 hover:scale-101 ease-in-out">
+          <h1 className="text-6xl sm:text-7xl md:text-9xl lg:text-[12rem] text-rose-300 tracking-wider select-none center-glow duration-300 hover:scale-101 ease-in-out">
             QUIZORA
           </h1>
           <div className="mt-6 flex items-center justify-center gap-4">
@@ -149,7 +149,7 @@ const LandingPage = () => {
       {/* Hero Section */}
       <div className="min-h-screen flex items-center justify-center bg-[#EFD345] p-6">
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-gray-800 animate-fade-in-down">
+          <h1 className="text-4xl sm:text-5xl md:text-7xlfont-extrabold text-gray-800 animate-fade-in-down">
             Transform Documents into{" "}
             <span className="text-indigo-600 inline-block min-w-[300px] text-left">
               <Typewriter
@@ -179,7 +179,7 @@ const LandingPage = () => {
       </div>
 
       {/* Features Section */}
-      <section className="h-150 py-20 px-6 bg-[#FFEEB3]">
+      <section className="py-20 px-6 bg-[#FFEEB3] min-h-screen flex items-center">
         <div className="container mx-auto w-10/12 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Unlock Your Learning Potential</h2>
           <p className="text-gray-600 max-w-2xl mx-auto mb-12 font-sans">

@@ -79,14 +79,13 @@ const InstantQuiz = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-400 via-orange-200 to-orange-100 flex items-center justify-center p-4 mt-[-36px]">
-      <div className="bg-white/50 backdrop-blur-md p-8 rounded-3xl shadow-2xl w-full max-w-lg border border-white/20">
+      <div className="bg-white/50 backdrop-blur-md p-5 sm:p-8 rounded-3xl shadow-2xl w-full max-w-lg border border-white/20">
         
         <div className="flex items-center space-x-3 mb-6">
           <div className="p-2 bg-orange-100 rounded-lg text-orange-600"><Zap size={24} /></div>
           <h2 className="text-3xl font-bold text-gray-900">Instant Quiz</h2>
         </div>
 
-        {/* Added tag counter and modified label */}
         <div className="space-y-4 mb-8">
           <div className="flex justify-between items-center">
             <label className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
@@ -97,7 +96,7 @@ const InstantQuiz = () => {
             </span>
           </div>
           
-          <div className="flex space-x-2">
+          <div className="flex gap-2">
             <input 
               type="text" 
               value={topic} 
@@ -105,7 +104,7 @@ const InstantQuiz = () => {
               placeholder="e.g. Quantum Physics, Python Basics..."
               //Disable input when max tags reached
               disabled={isMaxTags}
-              className={`flex-grow bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-orange-400 outline-none transition-all ${
+              className={`w-full min-w-0 flex-grow bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-orange-400 outline-none transition-all ${
                 isMaxTags ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             />
@@ -113,7 +112,7 @@ const InstantQuiz = () => {
             <button 
               onClick={handleAddTag} 
               disabled={isMaxTags}
-              className={`p-3 rounded-xl transition-all ${
+              className={`shrink-0 p-3 rounded-xl flex items-center justify-center transition-all ${
                 isMaxTags 
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
                   : 'bg-gray-900 text-white hover:bg-black'

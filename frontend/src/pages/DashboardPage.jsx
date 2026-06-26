@@ -53,7 +53,7 @@ const DashboardPage = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-orange-400 via-orange-200 to-orange-100 flex items-center justify-center p-4 mt-[-25px]">
-            <div className="max-w-xl w-full bg-white/50 rounded-2xl shadow-lg p-8 text-center">
+            <div className="max-w-xl w-full bg-white/50 rounded-2xl shadow-lg p-5 sm:p-8 text-center">
                 <h1 className="text-3xl font-bold font-unbounded text-gray-900 mb-2">Generate Your Quiz</h1>
                 <p className="text-gray-800 mb-8">Upload a 1-page PDF document to get started.</p>
 
