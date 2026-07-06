@@ -42,7 +42,7 @@ const Navbar = () => {
         <header className={`backdrop-blur-md sticky top-1 rounded-3xl z-50 transition-all duration-300 ${
             isScrolled ? 'bg-teal-50 border-b border-gray-200 shadow-sm' : 'bg-white/10 border-b border-white/20'
         }`}>
-            <nav className="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+            <nav className="w-full px-3 sm:px-6 py-3 flex justify-between items-center">
                 
                 {/* Left Section: Logo */}
                 <Link to="/" className={`flex items-center space-x-2 text-xl font-bold transition-colors ${isScrolled ? 'text-gray-900' : 'text-white'}`}>
@@ -127,7 +127,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
 
 // const Navbar = () => {
 //   // Manages header transparency based on how far the user has scrolled.

@@ -30,7 +30,7 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="min-h-screen inset-0 z-0 bg-gradient-to-r from-[#fef08a] via-[#84cc16] to-[#16a34a] flex items-center justify-center p-4 relative mt-[-34px]">
+        <div className="min-h-screen inset-0 z-0 bg-gradient-to-br from-red-700 via-orange-300 to-zinc-100 flex items-center justify-center p-4 relative mt-[-34px]">
             {/* Decorative Orbs */}
             {/*<div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
             <div className="absolute top-40 right-10 w-72 h-72 bg-yellow-600 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-2000"></div>*/}
