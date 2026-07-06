@@ -50,7 +50,7 @@ const Navbar = () => {
                     <span>Quizora</span>
                 </Link>
 
-                {/* --- MOBILE HAMBURGER BUTTON --- */}
+                {/* MOBILE HAMBURGER BUTTON */}
                 <button 
                     className="md:hidden p-2 text-gray-800"
                     onClick={toggleMobileMenu}
@@ -103,7 +103,7 @@ const Navbar = () => {
                 </div>
             </nav>
 
-            {/* --- MOBILE DROPDOWN MENU --- */}
+            {/* MOBILE DROPDOWN MENU */}
             {/* This only renders if the hamburger menu is clicked */}
             <div className={`md:hidden absolute top-full left-0 w-full bg-white/80 shadow-xl rounded-b-3xl transition-all duration-300 overflow-hidden ${isNavbarMenuOpen ? 'max-h-96 py-4' : 'max-h-0 py-0'}`}>
                 {token && user ? (

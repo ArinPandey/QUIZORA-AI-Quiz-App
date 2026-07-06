@@ -9,7 +9,7 @@ import { store } from './redux/store';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* 2. Wrap your entire app with the Provider */}
+    {/* Wrap your entire app with the Provider */}
     <Provider store={store}>
       <BrowserRouter>
         <App />

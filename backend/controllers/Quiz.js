@@ -7,21 +7,21 @@ exports.generateQuiz = async (req, res) => {
         const { type, tags, numQuestions, difficulty } = req.body; 
         let textToProcess = ""; 
 
-        // ***** SECTION A: Handle Instant Quiz (Tags) ---
+        // SECTION A: Handle Instant Quiz (Tags)
         // This is the new logic, for checking ki instant feature chalana hai ya nhi...
         if (type === 'instant' && tags) {
-            console.log("⚡ Instant Quiz requested for:", tags);
+            console.log(" Instant Quiz requested for:", tags);
             textToProcess = `Generate a ${difficulty} difficulty quiz with ${numQuestions} questions about these topics: ${tags.join(", ")}.`;
         } 
         
-        // ***** SECTION B: Handle PDF Quiz (Original Logic) ---
+        // SECTION B: Handle PDF Quiz (Original Logic)
         else if (req.file) {
-            console.log("📂 PDF Quiz requested:", req.file.originalname);
+            console.log(" PDF Quiz requested:", req.file.originalname);
             const data = await pdf(req.file.buffer);
             textToProcess = data.text.substring(0, 15000); // Limit text for AI context window
         } 
         
-        // ***** SECTION C: Error ---
+        // SECTION C: Error 
         else {
             // If both are missing, then we return a 400
             return res.status(400).json({ 
@@ -30,8 +30,8 @@ exports.generateQuiz = async (req, res) => {
             });
         }
 
-        // ***** SECTION D: Unified AI Call ---
-        console.log("🤖 Sending to AI helper...");
+        // SECTION D: Unified AI Call ---
+        console.log(" Sending to AI helper...");
         const quiz = await generateQuizFromText(textToProcess);
 
         if (!quiz || !Array.isArray(quiz) || quiz.length === 0) {
@@ -45,7 +45,7 @@ exports.generateQuiz = async (req, res) => {
         });
 
     } catch (error) {
-        console.error("💥 Controller Error:", error);
+        console.error(" Controller Error:", error);
         return res.status(500).json({ success: false, message: "Server error occurred." });
     }
 };
@@ -57,27 +57,27 @@ exports.generateQuiz = async (req, res) => {
 
 // exports.generateQuiz = async (req, res) => {
 //     try {
-//         console.log("📌 generateQuiz called");
+//         console.log(" generateQuiz called");
 
 //         // Step 1: Check if file was uploaded
 //         if (!req.file) {
-//             console.log("❌ No file uploaded");
+//             console.log(" No file uploaded");
 //             return res.status(400).json({
 //                 success: false,
 //                 message: "No file uploaded. Please upload a PDF.",
 //             });
 //         }
 
-//         console.log("📂 File received:", req.file.originalname);
+//         console.log(" File received:", req.file.originalname);
 
 //         // Step 2: Extract text from the PDF buffer
 //         const data = await pdf(req.file.buffer);
-//         console.log("📄 PDF text length:", data.text.length);
+//         console.log(" PDF text length:", data.text.length);
 
 //         const text = data.text;
 
 //         if (!text || text.trim() === "") {
-//             console.log("❌ No text extracted from PDF");
+//             console.log(" No text extracted from PDF");
 //             return res.status(400).json({
 //                 success: false,
 //                 message: "Could not extract text from the PDF. The file might be empty or image-based."
@@ -88,18 +88,18 @@ exports.generateQuiz = async (req, res) => {
 //         const limitedText = text.substring(0, 15000);
 
 //         // Step 4: Call the AI helper
-//         console.log("🤖 Sending text to AI helper...");
+//         console.log(" Sending text to AI helper...");
 //         const quiz = await generateQuizFromText(limitedText);
 
 //         if (!quiz || !Array.isArray(quiz) || quiz.length === 0) {
-//             console.log("❌ AI returned invalid quiz:", quiz);
+//             console.log("AI returned invalid quiz:", quiz);
 //             return res.status(500).json({
 //                 success: false,
 //                 message: "The AI could not generate a valid quiz from the provided text."
 //             });
 //         }
 
-//         console.log("✅ Quiz generated:", quiz.length, "questions");
+//         console.log(" Quiz generated:", quiz.length, "questions");
 
 //         // Step 5: Success
 //         return res.status(200).json({
@@ -109,7 +109,7 @@ exports.generateQuiz = async (req, res) => {
 //         });
 
 //     } catch (error) {
-//         console.error("💥 Error in generateQuiz:", error);
+//         console.error(" Error in generateQuiz:", error);
 //         return res.status(500).json({
 //             success: false,
 //             message: "A server error occurred while generating the quiz. Please try again.",
@@ -117,7 +117,7 @@ exports.generateQuiz = async (req, res) => {
 //     }
 // };
 
-// --- ADD THIS NEW FUNCTION ---
+// ADD THIS NEW FUNCTION 
 exports.listModels = async (req, res) => {
     try {
         console.log("Listing available AI models...");

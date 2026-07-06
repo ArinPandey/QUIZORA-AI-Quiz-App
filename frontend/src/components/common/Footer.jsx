@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="container mx-auto py-12 px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           
-          {/* Column 1: App Info */}
+          {/* App Info */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center space-x-2 text-xl font-bold text-white">
               <BrainCircuit className="text-indigo-500 h-7 w-7" />
@@ -21,7 +21,7 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Column 2: Quick Links */}
+          {/* Quick Links */}
           <div>
             <h3 className="font-semibold text-white mb-4">Quick Links</h3>
             <ul className="space-y-2">
@@ -32,18 +32,11 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 3: Social Media */}
+          {/* Social Media */}
           <div>
             <h3 className="font-semibold text-white mb-4">Connect With Us</h3>
             <div className="flex space-x-4">
-              <a 
-                href="https://www.instagram.com/arin_vk18" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-gray-400 hover:text-indigo-400 transition-colors"
-              >
-                <Instagram />
-              </a>
+              
               <a 
                 href="https://www.linkedin.com/in/arin-pandey-74b872300" 
                 target="_blank" 

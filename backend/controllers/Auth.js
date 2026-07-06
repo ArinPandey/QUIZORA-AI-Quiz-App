@@ -85,7 +85,7 @@ exports.signup = async (req, res) => {
             });
         }
 
-        // Respond to frontend - IMPORTANT: Don't send user data yet
+        // Respond to frontend - ! dont sent user data yet !
         return res.status(200).json({ // Use 200 OK because the user isn't fully created yet
             success: true,
             message: "OTP sent successfully! Please check your email to verify your account.",
@@ -224,7 +224,7 @@ exports.login = async (req, res) => {
     }
 };
 
-// --- Forgot Password ---
+// Forgot Password
 exports.forgotPassword = async (req, res) => {
     try {
         // get email from DB and validate the same...
@@ -257,7 +257,7 @@ exports.forgotPassword = async (req, res) => {
     }
 };
 
-// --- Reset Password ---
+// Reset Password
 exports.resetPassword = async (req, res) => {
     try {
         //Jo token user ke mail par jo token aur reset link gyi hai usi Token ke adhaar par user details fetch kar rhe...

@@ -9,7 +9,6 @@ import 'react-circular-progressbar/dist/styles.css';
 import confetti from 'canvas-confetti';
 
 const QuizPage = () => {
-    // --- STATE AND REFS ---
     const location = useLocation();
     const { token } = useSelector((state) => state.auth);
     
@@ -23,7 +22,6 @@ const QuizPage = () => {
     const [timer, setTimer] = useState(60);
     const timerInterval = useRef(null);
 
-    // --- EFFECTS ---
     useEffect(() => {
         const aiQuestions = location.state?.questions;
 
@@ -49,7 +47,7 @@ const QuizPage = () => {
         }
     }, [timer]);
 
-    // --- LOGIC FUNCTIONS ---
+    // LOGIC FUNCTIONS 
     const resetQuizState = () => {
         setCurrentQuestion(0);
         setSelectedAnswer(null);
@@ -123,8 +121,6 @@ const QuizPage = () => {
         resetQuizState();
         setGameState('start');
     };
-
-    // --- UI SUB-COMPONENTS ---
 
     const CircularTimer = ({ timeLeft, totalTime = 60 }) => {
         const radius = 22;

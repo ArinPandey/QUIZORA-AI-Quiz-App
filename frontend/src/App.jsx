@@ -71,42 +71,5 @@ export default App;
 
 
 
-// import React from 'react';
-// import { Toaster } from 'react-hot-toast';
-// import Navbar from './components/common/Navbar';
-// import { Route, Routes } from 'react-router-dom';
-// import QuizPage from './pages/QuizPage'; 
-// import LandingPage from './pages/LandingPage';
-// import Footer from "./components/common/Footer.jsx";
-// import SignupPage from './pages/SignupPage';
-// import LoginPage from './pages/LoginPage';
-
-
-// function App() {
-//   return (
-//     <div className="bg-gray-50 min-h-screen flex flex-col">
-//       <Navbar />
-      
-//       <main>
-//         <Routes>
-//           <Route path="/" element={<LandingPage />} />
-           
-//           <Route path="/login" element={<LoginPage />} />
-//           <Route path="/signup" element={<SignupPage />} />
-
-//           {/* Protected Route */}
-//           <Route 
-//             path="/quiz" 
-//             element={<QuizPage />} 
-//           />
-//         </Routes>
-//       </main>
-//       <Toaster />
-//       <Footer />
-//     </div>
-//   );
-// }
-
-// export default App;
 
 

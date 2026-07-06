@@ -2,23 +2,23 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const cookieParser = require('cookie-parser'); // Make sure this is imported
+const cookieParser = require('cookie-parser'); 
 const connectDB = require('./config/database');
 
-// --- Import Routes ---
+// Import Routes 
 const authRoutes = require('./routes/user');
 const quizRoutes = require('./routes/quiz');
 
-// --- Initial Configurations ---
+// Initial Configurations 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// --- Database Connection ---
+// Database Connection
 connectDB();
 
-// --- Middlewares (Order is important!) ---
+// Middlewares (Order is important!) 
 app.use(express.json());
 app.use(cookieParser()); 
 
@@ -43,16 +43,16 @@ app.use(
     })
 );
 
-// --- Mount API Routes ---
+// Mount API Routes 
 app.use('/api/auth', authRoutes);
 app.use('/api/quiz', quizRoutes);
 
-// --- Basic Test Route ---
+// Basic Test Route
 app.get('/', (req, res) => {
   res.json({ message: "Welcome to the Quizora API!" });
 });
 
-// --- Start the Server ---
+// Start the Server
 const server = app.listen(PORT, () => {
   console.log(`***Server is running on port ${PORT}`);
 });
@@ -71,13 +71,13 @@ server.timeout = 120000;
 // const cookieParser = require('cookie-parser');
 // const cors = require('cors');
 
-// // 1. Import the database connection function from our new file
+// // Import the database connection function from our new file
 // const connectDB = require('./config/database');
 
 // // Load environment variables from .env file
 // dotenv.config();
 
-// // 2. Execute the connection to the database
+// // Execute the connection to the database
 // connectDB();
 
 // const app = express();
@@ -105,7 +105,7 @@ server.timeout = 120000;
 // });
 
 // app.listen(PORT, () => {
-//   console.log(`🚀 Server is running on port ${PORT}`);
+//   console.log(`Server is running on port ${PORT}`);
 // });
 
 

@@ -23,10 +23,10 @@ const mailSender = async (to, subject, html) => {
       htmlContent: html,
     });
 
-    console.log('✅ Email sent via Brevo:', response.messageId || response);
+    console.log('Email sent via Brevo:', response.messageId || response);
     return response;
   } catch (error) {
-    console.error('❌ Error sending email via Brevo:', error.response?.body || error);
+    console.error('Error sending email via Brevo:', error.response?.body || error);
     throw error;
   }
 };

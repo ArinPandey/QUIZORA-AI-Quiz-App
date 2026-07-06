@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   // Check localStorage to see if a token already exists to keep the user logged in
   token: localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null,
-  // ADD THIS: Check localStorage for user data on initialization
+  // Check localStorage for user data on initialization
   user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
 };
 

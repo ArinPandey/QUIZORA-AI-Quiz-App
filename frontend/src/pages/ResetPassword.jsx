@@ -24,12 +24,12 @@ const ResetPassword = () => {
     const handleReset = async (e) => {
         e.preventDefault();
 
-        // 1. Check if passwords match
+        // Check if passwords match
         if (password !== confirmPassword) {
             return toast.error("Passwords do not match!");
         }
 
-        // 2. Enforce security constraints (6+ chars, 1 Upper, 1 Lower, 1 Special)
+        // Enforce security constraints (6+ chars, 1 Upper, 1 Lower, 1 Special)
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$/;
         if (!passwordRegex.test(password)) {
             return toast.error("Password must be 6+ chars with uppercase, lowercase, & special char.");

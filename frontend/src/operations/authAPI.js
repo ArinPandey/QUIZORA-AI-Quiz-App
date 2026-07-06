@@ -72,7 +72,7 @@ export const login = (email, password, navigate) => {
         
         // Dispatch the setToken action to save the token
         dispatch(setToken(response.data.token));
-        // 2. Save the user object to Redux/LocalStorage
+        // Save the user object to Redux/LocalStorage
         dispatch(setUser(response.data.user));
         
         // Navigate to the homepage

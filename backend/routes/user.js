@@ -9,7 +9,7 @@ const { signup, login, verifyOTP, forgotPassword, resetPassword } = require("../
 const { auth } = require("../middlewares/auth");
 const { loginLimiter } = require('../middlewares/rateLimiter');
 
-// ***** Public Routes (Inpar security nahi hai)
+// Public Routes (Inpar security nahi hai)
 
 // Route for user signup
 // Jab is URL par POST request aayegi, toh 'signup' function chalega
@@ -24,7 +24,7 @@ router.post("/verify-otp", verifyOTP);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
 
-// --- Protected Route (Ye saare secured routes hain) ---
+// rotected Route (Ye saare secured routes hain) ---
 // Is route ko access karne se pehle, 'auth' middleware chalega
 router.get("/test", auth, (req, res) => {
     // Agar auth middleware ne request ko yahan tak aane diya,
@@ -36,5 +36,4 @@ router.get("/test", auth, (req, res) => {
     });
 });
 
-// Router ko export kar rahe hain
 module.exports = router;
